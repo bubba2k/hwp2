@@ -1,0 +1,166 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 1 1
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+$Comp
+L power:GND #PWR?
+U 1 1 6556A7CF
+P 3000 3850
+F 0 "#PWR?" H 3000 3600 50  0001 C CNN
+F 1 "GND" H 3005 3677 50  0000 C CNN
+F 2 "" H 3000 3850 50  0001 C CNN
+F 3 "" H 3000 3850 50  0001 C CNN
+	1    3000 3850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3000 2500 3100 2500
+$Comp
+L power:+5V #PWR?
+U 1 1 6556BC2C
+P 4200 1600
+F 0 "#PWR?" H 4200 1450 50  0001 C CNN
+F 1 "+5V" H 4215 1773 50  0000 C CNN
+F 2 "" H 4200 1600 50  0001 C CNN
+F 3 "" H 4200 1600 50  0001 C CNN
+	1    4200 1600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	4200 1600 4200 1800
+Wire Wire Line
+	3000 3850 3000 3800
+Wire Wire Line
+	4200 3700 4200 3800
+Connection ~ 3000 3800
+Wire Wire Line
+	3000 3800 3000 3400
+Connection ~ 3000 3400
+Wire Wire Line
+	3000 3400 3000 2600
+Connection ~ 3000 2600
+Wire Wire Line
+	3000 2600 3000 2500
+$Comp
+L Device:R 4.7k
+U 1 1 6557034C
+P 3250 2600
+F 0 "4.7k" V 3365 2600 50  0000 C CNN
+F 1 "R2" V 3456 2600 50  0000 C CNN
+F 2 "" V 3180 2600 50  0001 C CNN
+F 3 "~" H 3250 2600 50  0001 C CNN
+	1    3250 2600
+	0    1    1    0   
+$EndComp
+Wire Wire Line
+	3100 2600 3000 2600
+$Comp
+L Device:R 4.7k
+U 1 1 6556FCB6
+P 3250 2500
+F 0 "4.7k" V 3043 2500 50  0000 C CNN
+F 1 "R1" V 3134 2500 50  0000 C CNN
+F 2 "" V 3180 2500 50  0001 C CNN
+F 3 "~" H 3250 2500 50  0001 C CNN
+	1    3250 2500
+	0    1    1    0   
+$EndComp
+$Comp
+L Switch:SW_SPST SW1
+U 1 1 6557BAC0
+P 3600 2100
+F 0 "SW1" V 3700 2000 50  0000 R CNN
+F 1 "X" V 3600 2000 50  0000 R CNN
+F 2 "" H 3600 2100 50  0001 C CNN
+F 3 "~" H 3600 2100 50  0001 C CNN
+	1    3600 2100
+	0    -1   -1   0   
+$EndComp
+Connection ~ 3600 2600
+Wire Wire Line
+	3600 1800 4200 1800
+Connection ~ 4200 1800
+Wire Wire Line
+	4200 1800 4200 2300
+Wire Wire Line
+	3600 1800 3600 1900
+$Comp
+L Switch:SW_SPST SW1
+U 1 1 65583646
+P 3400 2100
+F 0 "SW1" V 3500 2200 50  0000 L CNN
+F 1 "CLK" V 3400 2200 50  0000 L CNN
+F 2 "" H 3400 2100 50  0001 C CNN
+F 3 "~" H 3400 2100 50  0001 C CNN
+	1    3400 2100
+	0    -1   -1   0   
+$EndComp
+Text Label 3350 1500 0    50   ~ 0
+CLK
+Text Label 4950 3100 0    50   ~ 0
+D
+Text Label 4950 3000 0    50   ~ 0
+C
+Text Label 4950 2900 0    50   ~ 0
+B
+Text Label 4950 2800 0    50   ~ 0
+A
+Wire Wire Line
+	3600 2600 3700 2600
+$Comp
+L Logic_Programmable:GAL16V8 U?
+U 1 1 65567C73
+P 4200 3000
+F 0 "U?" H 4200 3881 50  0001 C CNN
+F 1 "GAL16V8" H 4200 3789 50  0000 C CNN
+F 2 "" H 4200 3000 50  0001 C CNN
+F 3 "" H 4200 3000 50  0001 C CNN
+	1    4200 3000
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3700 2500 3400 2500
+Connection ~ 3400 2500
+Wire Wire Line
+	4700 2800 4950 2800
+Wire Wire Line
+	4700 2900 4950 2900
+Wire Wire Line
+	4700 3000 4950 3000
+Wire Wire Line
+	4700 3100 4950 3100
+Wire Wire Line
+	3400 2600 3600 2600
+Wire Wire Line
+	3700 3400 3000 3400
+Wire Wire Line
+	4200 3800 3000 3800
+Wire Wire Line
+	3400 2300 3400 2500
+Wire Wire Line
+	3600 2300 3600 2600
+$Comp
+L power:+5V #PWR?
+U 1 1 655A9A5E
+P 3400 1600
+F 0 "#PWR?" H 3400 1450 50  0001 C CNN
+F 1 "+5V" H 3415 1773 50  0001 C CNN
+F 2 "" H 3400 1600 50  0001 C CNN
+F 3 "" H 3400 1600 50  0001 C CNN
+	1    3400 1600
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	3400 1600 3400 1900
+$EndSCHEMATC
