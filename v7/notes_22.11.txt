@@ -1,0 +1,7 @@
+3B/4B Kodierung als Möglichkeit, Rahmen zu bilden und Steuerzeichen zu implementieren
+
+zu lösen:
+    Gleichzeitiger Empfang und Versand
+    Umwandlung von ASCII in Bits
+    Starten des Programms? Wie läuft Empfang und Versand ab in Bezug auf "Welches Programm ist wann am Laufen?"
+    Queue für die geordnete Verarbeitung des Bitstreams? also geordneter Versand?
