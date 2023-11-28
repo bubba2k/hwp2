@@ -119,7 +119,7 @@
 
   (footprint "Connector_PinSocket_2.54mm:PinSocket_2x03_P2.54mm_Vertical" (layer "F.Cu")
     (tstamp 2171a766-5e93-431e-a43d-7716ac60b62b)
-    (at 96.52 96.52 90)
+    (at 96.52 93.98 90)
     (descr "Through hole straight socket strip, 2x03, 2.54mm pitch, double cols (from Kicad 4.0.7), script generated")
     (tags "Through hole socket strip THT 2x03 2.54mm double row")
     (property "Sheetfile" "Schaltplan-ATMega48.kicad_sch")
