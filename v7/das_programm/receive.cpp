@@ -2,12 +2,14 @@
 #include <vector>
 
 // TODO: Implement await_begin_phase, check_phase,
-// figure out how to extract the frame_buffer from receiver struct
+// figure out how to extract the byte_buffer from receiver struct
 
 // Masks for channel state    76543210
 #define RECV_DATA_BIT_MASK  0b00000011
 #define RECV_ACK_BIT_MASK   0b00000100
 #define RECV_CLK_BIT_MASK   0b00001000
+
+// BEGIN | CHECKSUM | DATA... | END
 
 enum class ControlSeq {
   ESCAPE = 0x1,
@@ -23,16 +25,17 @@ bool is_control_sequence(unsigned char byte) {
 
 enum class ReceiverPhase {
   AWAIT_BEGIN,
+  FETCH_CHECKSUM,
   RECEIVE,
   CHECK,
 };
 
 class Receiver {
-  std::vector<unsigned char> frame_buffer;
+  std::vector<unsigned char> byte_buffer;
+  unsigned char bit_buffer;
 
   ReceiverPhase phase;
   unsigned int n_bits_received;
-  unsigned char byte_buffer;
   bool last_clock;
   bool ignore_next_control_sequence;
 
@@ -42,15 +45,15 @@ class Receiver {
   bool read_clock(unsigned char channel_state);
   unsigned char get_data_bits(unsigned char channel_state);
 
-
   // State machine phases
   void await_begin_phase(unsigned char channel_state);
+  void fetch_checksum_phase(unsigned char channel_state);
   void receive_phase(unsigned char channel_state);
   void check_phase();
 
   public:
   bool frame_available();
-  bool pull_frame(std::vector<unsigned char>& destination);
+  bool frame_pull(std::vector<unsigned char>& destination);
   void tick(unsigned char last_read);
   Receiver();
 };
@@ -58,7 +61,7 @@ class Receiver {
 Receiver::Receiver() {
   phase = ReceiverPhase::AWAIT_BEGIN;
   n_bits_received = 0;
-  byte_buffer = 0;
+  bit_buffer = 0;
   last_clock = false;
   ignore_next_control_sequence = false;
   frame_ready = false;
@@ -80,6 +83,10 @@ void Receiver::await_begin_phase(unsigned char channel_state) {
   channel_state = channel_state; // Silence unused parameter warning
 }
 
+void Receiver::fetch_checksum_phase(unsigned char channel_state) {
+  return;
+}
+
 void Receiver::check_phase() {
   // At this point, we have received a full frame. We shall test if 
   // it is valid, and (not) send ACK accordingly...
@@ -95,7 +102,7 @@ void Receiver::check_phase() {
     // TODO: Do *not* send ACK here!
   
     // All has failed, wipe the frame buffer...
-    frame_buffer.clear();
+    byte_buffer.clear();
   }
 
   // 'ight, wait for the next frame to begin.
@@ -122,8 +129,8 @@ void Receiver::receive_phase(unsigned char channel_state) {
   unsigned char new_bits = get_data_bits(channel_state);
 
   // Shift to make space, then set the two new bits.
-  byte_buffer = byte_buffer << 2;
-  byte_buffer = byte_buffer | new_bits;
+  bit_buffer = bit_buffer << 2;
+  bit_buffer = bit_buffer | new_bits;
   // Update how many bits of the current byte we have received.
   n_bits_received += 2;
 
@@ -131,14 +138,14 @@ void Receiver::receive_phase(unsigned char channel_state) {
   if(n_bits_received == 8) {
 
     // Check whether it is a control sequence... and handle it appropriately
-    if(is_control_sequence(byte_buffer)) {
+    if(is_control_sequence(bit_buffer)) {
 
       // Ignore this one, but don't ignore the next one, obviously.
       if(ignore_next_control_sequence) {
         ignore_next_control_sequence = false;
       }
       else {  // Handle the escape sequences.
-        switch(static_cast<ControlSeq>(byte_buffer)) {
+        switch(static_cast<ControlSeq>(bit_buffer)) {
           // We shall ignore the next control sequence ...
           case ControlSeq::ESCAPE:
             ignore_next_control_sequence = true;
@@ -156,7 +163,7 @@ void Receiver::receive_phase(unsigned char channel_state) {
     }
 
     // Push the byte, reset bit counter.
-    frame_buffer.push_back(byte_buffer);
+    byte_buffer.push_back(bit_buffer);
     n_bits_received = 0;
   }
 }
@@ -172,6 +179,9 @@ void Receiver::tick(unsigned char channel_state) {
     case ReceiverPhase::CHECK:
       check_phase();
       break;
+    case ReceiverPhase::FETCH_CHECKSUM:
+      fetch_checksum_phase(channel_state);
+      break;
   }
 }
 
@@ -179,18 +189,18 @@ bool Receiver::frame_available() {
   return frame_ready;
 }
 
-// Copy the 
-bool Receiver::pull_frame(std::vector<unsigned char>& destination) {
+// Release the internal frame buffer if it contains a checked full frame.
+bool Receiver::frame_pull(std::vector<unsigned char>& destination) {
   if(frame_ready) {
     // Copy in to destination byte by byte ......
     destination.clear();
-    for(const auto& byte : frame_buffer) {
+    for(const auto& byte : byte_buffer) {
       destination.push_back(byte);
     }
 
     // Wipe the frame buffer... unset ready flag...
     frame_ready = !frame_ready;
-    frame_buffer.clear();
+    byte_buffer.clear();
     return true;
   } 
   else {
@@ -200,17 +210,15 @@ bool Receiver::pull_frame(std::vector<unsigned char>& destination) {
 
 
 int main(int argc, char *argv[]) {
-
   Receiver receiver;
 
   for(;;) {
     // unsigned char channel_state = ...read channel state here..();
     // receiver.tick(channel_state);
     // if(receiver.frame_available()) {
-    //  ... collect the frame and do something with it ...
+    //   receiver.frame_pull(*vector*);
     // }
   }
-
 
   return 0;
 }
