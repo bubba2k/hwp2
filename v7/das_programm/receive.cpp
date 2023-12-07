@@ -28,6 +28,7 @@ enum class ReceiverPhase {
   FETCH_CHECKSUM,
   RECEIVE,
   CHECK,
+  SEND_ACK,
 };
 
 class Receiver {
@@ -35,6 +36,7 @@ class Receiver {
   unsigned char bit_buffer;
 
   ReceiverPhase phase;
+  unsigned int n_ticks_ack_sent;
   unsigned int n_bits_received;
   bool last_clock;
   bool ignore_next_control_sequence;
@@ -46,15 +48,16 @@ class Receiver {
   unsigned char get_data_bits(unsigned char channel_state);
 
   // State machine phases
-  void await_begin_phase(unsigned char channel_state);
-  void fetch_checksum_phase(unsigned char channel_state);
-  void receive_phase(unsigned char channel_state);
-  void check_phase();
+  unsigned char await_begin_phase(unsigned char channel_state);
+  unsigned char fetch_checksum_phase(unsigned char channel_state);
+  unsigned char receive_phase(unsigned char channel_state);
+  unsigned char check_phase(unsigned char channel_state);
+  unsigned char send_ack_phase(unsigned char channel_state);
 
   public:
   bool frame_available();
   bool frame_pull(std::vector<unsigned char>& destination);
-  void tick(unsigned char last_read);
+  unsigned char tick(unsigned char channel_state);
   Receiver();
 };
 
@@ -65,6 +68,7 @@ Receiver::Receiver() {
   last_clock = false;
   ignore_next_control_sequence = false;
   frame_ready = false;
+  n_ticks_ack_sent = 0;
 }
 
 // Read current state of the clock.
@@ -77,17 +81,55 @@ unsigned char Receiver::get_data_bits(unsigned char channel_state) {
   return channel_state & RECV_DATA_BIT_MASK;
 }
 
-void Receiver::await_begin_phase(unsigned char channel_state) {
+unsigned char Receiver::await_begin_phase(unsigned char channel_state) {
   // TODO: Receive a full byte here, check whether it is a BEGIN 
   // control sequence, if so, change the phase to RECEIVE
-  channel_state = channel_state; // Silence unused parameter warning
+
+  // Only do something if the clock has changed.
+  // If the clock hath not changed, we shall abort this tick.
+  bool new_clock = read_clock(channel_state);
+  if(new_clock == last_clock) {
+    return channel_state;
+  } else {
+    last_clock = new_clock;
+  }
+
+  // Clock has changed, let us read the new data bits and shift them into the byte.
+  // First, get the two new bits.
+  unsigned char new_bits = get_data_bits(channel_state);
+
+  // Shift to make space, then set the two new bits.
+  bit_buffer = bit_buffer << 2;
+  bit_buffer = bit_buffer | new_bits;
+  // Update how many bits of the current byte we have received.
+  n_bits_received += 2;
+
+  // If we received a full byte at this point, check whether it is 
+  // a BEGIN, if so, move on to RECEIVE phase.
+  if(n_bits_received == 8) {
+    if(bit_buffer == (unsigned char) ControlSeq::BEGIN) {
+      phase = ReceiverPhase::RECEIVE;
+    }
+
+    n_bits_received = 0;
+  }
+
+  return channel_state;
 }
 
-void Receiver::fetch_checksum_phase(unsigned char channel_state) {
-  return;
+unsigned char Receiver::fetch_checksum_phase(unsigned char channel_state) {
+  // TODO: Implement this
+  return channel_state;
 }
 
-void Receiver::check_phase() {
+unsigned char Receiver::check_phase(unsigned char channel_state) {
+  // TODO: For testing purposes, we simply skip this phase for now
+  // and always send ACK, as if the check was successful.
+  phase = ReceiverPhase::SEND_ACK;
+  return channel_state;
+
+
+
   // At this point, we have received a full frame. We shall test if 
   // it is valid, and (not) send ACK accordingly...
   bool valid = false;
@@ -109,7 +151,25 @@ void Receiver::check_phase() {
   phase = ReceiverPhase::AWAIT_BEGIN;
 }
 
-void Receiver::receive_phase(unsigned char channel_state) {
+unsigned char Receiver::send_ack_phase(unsigned char channel_state) {
+  // Send ACK for a few ticks here
+  unsigned char new_channel_state = channel_state;
+
+  if(n_ticks_ack_sent > 20) {
+    // Done sending ACK, go back to AWAIT_BEGIN phase.
+    new_channel_state &= 0b1011;  // Do not send ACK no more
+    n_ticks_ack_sent = 0;
+  }
+  else {
+    // Send out ACK
+    new_channel_state |= 0b0100;
+    n_ticks_ack_sent += 1;
+  }
+
+  return new_channel_state;
+}
+
+unsigned char Receiver::receive_phase(unsigned char channel_state) {
   // In this phase we receive bits until we have formed a full byte.
   // Then we check whether the byte is a control sequence and 
   // handle those accordingly... 
@@ -119,7 +179,7 @@ void Receiver::receive_phase(unsigned char channel_state) {
   // If the clock hath not changed, we shall abort this tick.
   bool new_clock = read_clock(channel_state);
   if(new_clock == last_clock) {
-    return;
+    return channel_state;
   } else {
     last_clock = new_clock;
   }
@@ -136,7 +196,6 @@ void Receiver::receive_phase(unsigned char channel_state) {
 
   // If we received a full byte at this point...
   if(n_bits_received == 8) {
-
     // Check whether it is a control sequence... and handle it appropriately
     if(is_control_sequence(bit_buffer)) {
 
@@ -156,7 +215,9 @@ void Receiver::receive_phase(unsigned char channel_state) {
             break;
           // Frame end... proceed with check phase...
           case ControlSeq::END:
-            phase = ReceiverPhase::CHECK;
+            // TODO: For testing purposes, we skip the check phase and always send out
+            // ACK right away here.
+            phase = ReceiverPhase::SEND_ACK;
             break;
         }
       }
@@ -166,21 +227,26 @@ void Receiver::receive_phase(unsigned char channel_state) {
     byte_buffer.push_back(bit_buffer);
     n_bits_received = 0;
   }
+
+  return channel_state;
 }
 
-void Receiver::tick(unsigned char channel_state) {
+unsigned char Receiver::tick(unsigned char channel_state) {
   switch(phase) {
     case ReceiverPhase::RECEIVE:
-      receive_phase(channel_state);
+      return receive_phase(channel_state);
       break;
     case ReceiverPhase::AWAIT_BEGIN:
-      await_begin_phase(channel_state);
+      return await_begin_phase(channel_state);
       break;
     case ReceiverPhase::CHECK:
-      check_phase();
+      return check_phase(channel_state);
       break;
     case ReceiverPhase::FETCH_CHECKSUM:
-      fetch_checksum_phase(channel_state);
+      return fetch_checksum_phase(channel_state);
+      break;
+    default: // This should never happen
+      return channel_state;
       break;
   }
 }
