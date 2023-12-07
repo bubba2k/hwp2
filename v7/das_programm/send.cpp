@@ -1,4 +1,5 @@
 #include <vector>
+#include "send.hpp"
 
 #define DATA_BIT_MASK 0b0011
 #define ACK_BIT_MASK  0b0100
@@ -8,33 +9,6 @@ enum class ControlSeq {
   ESCAPE = 0x1,
   BEGIN  = 0x2,
   END    = 0x3
-};
-
-enum class SenderPhase {
-  SEND,
-  AWAIT_ACK,
-};
-
-class Sender {
-  std::vector<unsigned char> byte_buffer;
-  unsigned char bit_buffer;
-
-  SenderPhase phase;
-
-  unsigned int n_ticks_in_ack_wait;
-  unsigned int n_bits_sent, n_bytes_sent;
-  bool last_clock;
-
-  bool _need_frame;
-
-  unsigned char send_phase(unsigned char channel_state);
-  unsigned char await_ack_phase(unsigned char channel_state);
-
-  public:
-  unsigned char tick(unsigned char last_read);
-  bool need_frame();
-  bool read_frame(const std::vector<unsigned char>& frame);
-  Sender();
 };
 
 bool Sender::need_frame() {
@@ -145,18 +119,4 @@ unsigned char Sender::tick(unsigned char channel_state) {
       return 0x0;
       break;
   }
-}
-
-int main() {
-
-  /*
-  Sender sender;
-
-  while(true) {
-    if(sender.need_frame())
-      sender.read_frame() ... read in a new frame here
-  }
-  */
-
-  return 0;
 }
