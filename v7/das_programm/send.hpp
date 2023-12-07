@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 enum class SenderPhase {
   SEND,
   AWAIT_ACK,
@@ -15,7 +17,8 @@ class Sender {
   unsigned int n_bits_sent, n_bytes_sent;
   bool last_clock;
 
-  bool _need_frame;
+  bool _need_new_frame;
+  bool _have_frame;
 
   unsigned char send_phase(unsigned char channel_state);
   unsigned char await_ack_phase(unsigned char channel_state);

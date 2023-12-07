@@ -1,7 +1,9 @@
 #include <iostream>
 #include <vector>
+#include <cstdio>
 
 #include "receive.hpp"
+#include "common.hpp"
 
 // TODO: Implement await_begin_phase, check_phase,
 // figure out how to extract the byte_buffer from receiver struct
@@ -12,12 +14,6 @@
 #define RECV_CLK_BIT_MASK   0b00001000
 
 // BEGIN | CHECKSUM | DATA... | END
-
-enum class ControlSeq {
-  ESCAPE = 0x1,
-  BEGIN  = 0x2,
-  END    = 0x3
-};
 
 bool is_control_sequence(unsigned char byte) {
   return  (byte == (unsigned char) ControlSeq::ESCAPE) ||
@@ -72,8 +68,11 @@ unsigned char Receiver::await_begin_phase(unsigned char channel_state) {
   // a BEGIN, if so, move on to RECEIVE phase.
   if(n_bits_received == 8) {
     if(bit_buffer == (unsigned char) ControlSeq::BEGIN) {
+      byte_buffer.push_back(bit_buffer);    // Store the byte
       phase = ReceiverPhase::RECEIVE;
     }
+
+    fprintf(stderr, "RECV_AWAIT_BEGIN: Received 0x%x\n", bit_buffer);
 
     n_bits_received = 0;
   }
@@ -123,9 +122,15 @@ unsigned char Receiver::send_ack_phase(unsigned char channel_state) {
     // Done sending ACK, go back to AWAIT_BEGIN phase.
     new_channel_state &= 0b1011;  // Do not send ACK no more
     n_ticks_ack_sent = 0;
+    fprintf(stderr, "RECV_SEND_ACK: Done sending ACK\n");
+
+    frame_ready = true;
+
+    phase = ReceiverPhase::AWAIT_BEGIN;
   }
   else {
     // Send out ACK
+    fprintf(stderr, "RECV_SEND_ACK: Sending ACK\n");
     new_channel_state |= 0b0100;
     n_ticks_ack_sent += 1;
   }
@@ -160,6 +165,8 @@ unsigned char Receiver::receive_phase(unsigned char channel_state) {
 
   // If we received a full byte at this point...
   if(n_bits_received == 8) {
+
+    fprintf(stderr, "RECV_RECEIVE: Received 0x%x\n", bit_buffer);
     // Check whether it is a control sequence... and handle it appropriately
     if(is_control_sequence(bit_buffer)) {
 
@@ -181,6 +188,7 @@ unsigned char Receiver::receive_phase(unsigned char channel_state) {
           case ControlSeq::END:
             // TODO: For testing purposes, we skip the check phase and always send out
             // ACK right away here.
+            fprintf(stderr, "RECV_RECEIVE: Going to SEND_ACK\n");
             phase = ReceiverPhase::SEND_ACK;
             break;
         }
@@ -209,7 +217,11 @@ unsigned char Receiver::tick(unsigned char channel_state) {
     case ReceiverPhase::FETCH_CHECKSUM:
       return fetch_checksum_phase(channel_state);
       break;
+    case ReceiverPhase::SEND_ACK:
+      return send_ack_phase(channel_state);
+      break;
     default: // This should never happen
+      fprintf(stderr, "RECV_TICK: ERROR: Default case!!!\n");
       return channel_state;
       break;
   }

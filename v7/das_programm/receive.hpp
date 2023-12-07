@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 enum class ReceiverPhase {
   AWAIT_BEGIN,
   FETCH_CHECKSUM,
