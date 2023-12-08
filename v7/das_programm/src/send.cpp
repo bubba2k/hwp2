@@ -51,10 +51,11 @@ unsigned char Sender::await_ack_phase(unsigned char channel_state) {
     n_bytes_sent = 0;
 
     // Now just go back to SEND phase.
+    fprintf(stderr, "SENDER: Received ACK!\n");
     phase = SenderPhase::SEND;
     n_ticks_in_ack_wait = 0;
   }
-  else if(n_ticks_in_ack_wait > 20) { // Counting ticks is a cheap hack...
+  else if(n_ticks_in_ack_wait > 10) { // Counting ticks is a cheap hack...
     // Seems like we are not getting our ACK... Resend the current frame.
     _need_new_frame = false;  // Stays false.
     _have_frame = true;

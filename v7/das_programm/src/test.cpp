@@ -2,6 +2,7 @@
 #include "send.hpp"
 #include "common.hpp"
 
+#include <string>
 #include <cstdio>
 #include <vector>
 
@@ -15,9 +16,10 @@ bool operator==(const std::vector<unsigned char> a, const std::vector<unsigned c
   return true;
 }
 
-void print_byte_vector(const std::vector<unsigned char>& vec) {
+void print_byte_vector(FILE *stream, const std::string prefix, const std::vector<unsigned char>& vec) {
+  fprintf(stream, prefix.c_str());
   for(const auto& byte : vec) {
-    printf("0x%X, ", byte);
+    fprintf(stream, "0x%X, ", byte);
   }
   printf("\n");
 }
@@ -42,15 +44,20 @@ int main() {
   sender.read_frame(in_frame);
 
   unsigned i = 0;
-  while(!receiver.frame_available()) {
+  while(i < 50) {
+    if(receiver.frame_available()) {
+      receiver.frame_pull(out_frame);
+      print_byte_vector(stdout, std::to_string(i) + "_in:\t", in_frame);
+      print_byte_vector(stdout, std::to_string(i) + "_out:\t", out_frame);
+    }
+
     channel_state = sender.tick(channel_state);
     channel_state = receiver.tick(channel_state);
 
-    fprintf(stderr, "%04d: ", i++);
+    fprintf(stderr, "%04d: ", i);
     print_4_bits(channel_state);
+
+    i++;
   }
 
-  receiver.frame_pull(out_frame);
-  print_byte_vector(in_frame);
-  print_byte_vector(out_frame);
 }

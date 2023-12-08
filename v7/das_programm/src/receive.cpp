@@ -5,21 +5,13 @@
 #include "receive.hpp"
 #include "common.hpp"
 
-// TODO: Implement await_begin_phase, check_phase,
-// figure out how to extract the byte_buffer from receiver struct
-
+// TODO: Implement fetch_checksum_phase, check_phase
+//
 // Masks for channel state    76543210
-#define RECV_DATA_BIT_MASK  0b00000011
-#define RECV_ACK_BIT_MASK   0b00000100
-#define RECV_CLK_BIT_MASK   0b00001000
-
+#define DATA_BIT_MASK  0b00000011
+#define ACK_BIT_MASK   0b00000100
+#define CLK_BIT_MASK   0b00001000
 // BEGIN | CHECKSUM | DATA... | END
-
-bool is_control_sequence(unsigned char byte) {
-  return  (byte == (unsigned char) ControlSeq::ESCAPE) ||
-          (byte == (unsigned char) ControlSeq::BEGIN)  ||
-          (byte == (unsigned char) ControlSeq::END);
-}
 
 Receiver::Receiver() {
   phase = ReceiverPhase::AWAIT_BEGIN;
@@ -29,27 +21,37 @@ Receiver::Receiver() {
   ignore_next_control_sequence = false;
   frame_ready = false;
   n_ticks_ack_sent = 0;
+  send_ack = false;
 }
 
 // Read current state of the clock.
 bool Receiver::read_clock(unsigned char channel_state) {
-  return channel_state & RECV_CLK_BIT_MASK;
+  return channel_state & CLK_BIT_MASK;
 }
 
 // Read the state of the data bits. (The two least significant bits)
 unsigned char Receiver::get_data_bits(unsigned char channel_state) {
-  return channel_state & RECV_DATA_BIT_MASK;
+  return channel_state & DATA_BIT_MASK;
 }
 
 unsigned char Receiver::await_begin_phase(unsigned char channel_state) {
   // TODO: Receive a full byte here, check whether it is a BEGIN 
   // control sequence, if so, change the phase to RECEIVE
+  
+  unsigned char new_channel_state = channel_state;
+  // Send ACK here (or not)
+  if(send_ack) {
+    new_channel_state |= ACK_BIT_MASK;
+  }
+  else {
+    new_channel_state &= ~ACK_BIT_MASK;
+  }
 
   // Only do something if the clock has changed.
   // If the clock hath not changed, we shall abort this tick.
   bool new_clock = read_clock(channel_state);
   if(new_clock == last_clock) {
-    return channel_state;
+    return new_channel_state;
   } else {
     last_clock = new_clock;
   }
@@ -77,7 +79,7 @@ unsigned char Receiver::await_begin_phase(unsigned char channel_state) {
     n_bits_received = 0;
   }
 
-  return channel_state;
+  return new_channel_state;
 }
 
 unsigned char Receiver::fetch_checksum_phase(unsigned char channel_state) {
@@ -88,10 +90,10 @@ unsigned char Receiver::fetch_checksum_phase(unsigned char channel_state) {
 unsigned char Receiver::check_phase(unsigned char channel_state) {
   // TODO: For testing purposes, we simply skip this phase for now
   // and always send ACK, as if the check was successful.
-  phase = ReceiverPhase::SEND_ACK;
+  phase = ReceiverPhase::AWAIT_BEGIN;
+  send_ack = true;
+  frame_ready = true;
   return channel_state;
-
-
 
   // At this point, we have received a full frame. We shall test if 
   // it is valid, and (not) send ACK accordingly...
@@ -112,30 +114,6 @@ unsigned char Receiver::check_phase(unsigned char channel_state) {
 
   // 'ight, wait for the next frame to begin.
   phase = ReceiverPhase::AWAIT_BEGIN;
-}
-
-unsigned char Receiver::send_ack_phase(unsigned char channel_state) {
-  // Send ACK for a few ticks here
-  unsigned char new_channel_state = channel_state;
-
-  if(n_ticks_ack_sent > 20) {
-    // Done sending ACK, go back to AWAIT_BEGIN phase.
-    new_channel_state &= 0b1011;  // Do not send ACK no more
-    n_ticks_ack_sent = 0;
-    fprintf(stderr, "RECV_SEND_ACK: Done sending ACK\n");
-
-    frame_ready = true;
-
-    phase = ReceiverPhase::AWAIT_BEGIN;
-  }
-  else {
-    // Send out ACK
-    fprintf(stderr, "RECV_SEND_ACK: Sending ACK\n");
-    new_channel_state |= 0b0100;
-    n_ticks_ack_sent += 1;
-  }
-
-  return new_channel_state;
 }
 
 unsigned char Receiver::receive_phase(unsigned char channel_state) {
@@ -186,10 +164,8 @@ unsigned char Receiver::receive_phase(unsigned char channel_state) {
             break;
           // Frame end... proceed with check phase...
           case ControlSeq::END:
-            // TODO: For testing purposes, we skip the check phase and always send out
-            // ACK right away here.
-            fprintf(stderr, "RECV_RECEIVE: Going to SEND_ACK\n");
-            phase = ReceiverPhase::SEND_ACK;
+            fprintf(stderr, "RECV_RECEIVE: Going to CHECK_PHASE\n");
+            phase = ReceiverPhase::CHECK;
             break;
         }
       }
@@ -216,9 +192,6 @@ unsigned char Receiver::tick(unsigned char channel_state) {
       break;
     case ReceiverPhase::FETCH_CHECKSUM:
       return fetch_checksum_phase(channel_state);
-      break;
-    case ReceiverPhase::SEND_ACK:
-      return send_ack_phase(channel_state);
       break;
     default: // This should never happen
       fprintf(stderr, "RECV_TICK: ERROR: Default case!!!\n");

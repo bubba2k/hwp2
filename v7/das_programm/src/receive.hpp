@@ -7,7 +7,6 @@ enum class ReceiverPhase {
   FETCH_CHECKSUM,
   RECEIVE,
   CHECK,
-  SEND_ACK,
 };
 
 class Receiver {
@@ -19,6 +18,7 @@ class Receiver {
   unsigned int n_bits_received;
   bool last_clock;
   bool ignore_next_control_sequence;
+  bool send_ack;
 
   bool frame_ready;
 
@@ -31,7 +31,6 @@ class Receiver {
   unsigned char fetch_checksum_phase(unsigned char channel_state);
   unsigned char receive_phase(unsigned char channel_state);
   unsigned char check_phase(unsigned char channel_state);
-  unsigned char send_ack_phase(unsigned char channel_state);
 
   public:
   bool frame_available();
