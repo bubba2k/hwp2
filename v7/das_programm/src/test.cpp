@@ -1,28 +1,11 @@
 #include "receive.hpp"
 #include "send.hpp"
 #include "common.hpp"
+#include "pack.hpp"
 
 #include <string>
 #include <cstdio>
 #include <vector>
-
-bool operator==(const std::vector<unsigned char> a, const std::vector<unsigned char> b) {
-  if(a.size() != b.size()) return false;
-
-  for(unsigned i = 0; i < a.size(); i++) {
-    if(a[i] != b[i]) return false;
-  }
-
-  return true;
-}
-
-void print_byte_vector(FILE *stream, const std::string prefix, const std::vector<unsigned char>& vec) {
-  fprintf(stream, prefix.c_str());
-  for(const auto& byte : vec) {
-    fprintf(stream, "0x%X, ", byte);
-  }
-  printf("\n");
-}
 
 // Print the 4 LSBs
 void print_4_bits(const unsigned char bits) {
