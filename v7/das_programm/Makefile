@@ -7,7 +7,7 @@ build_dir:
 	mkdir -p build
 
 build_tests:
-	g++ $(CXXFLAGS_DEBUG) src/common.cpp src/pack.cpp src/doctest_main.cpp -o build/tests
+	g++ $(CXXFLAGS_DEBUG) src/common.cpp src/pack.cpp src/doctest_main.cpp src/receive.cpp src/send.cpp -o build/tests
 
 run:
 	./build/test

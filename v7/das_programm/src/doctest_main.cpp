@@ -9,6 +9,8 @@
 
 #include "pack.hpp"
 #include "common.hpp"
+#include "send.hpp"
+#include "receive.hpp"
 
 bool operator==(const std::vector<unsigned char>& a, const std::vector<unsigned char>& b) {
   if(a.size() != b.size()) return false;
@@ -61,6 +63,68 @@ TEST_CASE("Pack/Unpack check")
     print_byte_vector(stderr, "Frame buffer: ", frame_buffer);
 
     CHECK(frame_buffer == expected);
+  }
+}
+
+TEST_CASE("Receive/Send test") {
+  std::vector<unsigned char> frame_buffer, out_buffer;
+  std::vector<unsigned char> data{ 0xa, 0xb, 0xc, 0xd, 0xe, 0xf };
+  std::vector<unsigned char> expected_frame{  static_cast<unsigned char>(ControlSeq::BEGIN), 
+                                        0xa + 0xb + 0xc + 0xd + 0xe + 0xf,
+                                        0xa, 0xb, 0xc, 0xd, 0xe, 0xf,
+                                        static_cast<unsigned char>(ControlSeq::END) };
+
+  SUBCASE("One correct frame") {
+    Receiver receiver;
+    Sender sender;
+
+    pack_frame(data, frame_buffer);
+    sender.read_frame(frame_buffer);
+
+    CHECK(frame_buffer == expected_frame);
+
+    unsigned char channel_state = 0x0;
+    unsigned i = 0;
+    while(i++ < 100) {
+      channel_state = receiver.tick(channel_state);
+      channel_state = sender.tick(channel_state);
+    }
+
+    receiver.frame_pull(frame_buffer);
+    CHECK(frame_buffer == expected_frame);
+
+    unpack_frame(frame_buffer, out_buffer);
+    CHECK(out_buffer == data);
+  }
+
+  SUBCASE("Multiple correct frames") {
+    std::vector<std::vector<unsigned char>> data_blocks{
+      { 123, 20, 43, 24, 56, 78, 79, 80, 81, 100 },
+      { 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 123, 124, 100, 42, 32, 54, 100, 103, 1, 2, 3, 4, 88 },
+      { 123, 20, 43, 24, 56, 78, 79, 80, 81, 100 },
+    };
+
+    Receiver receiver;
+    Sender sender;
+    unsigned data_block_index = 0;
+
+    unsigned char channel_state = 0x0;
+    while(data_block_index < data_blocks.size()) {
+      if(sender.need_frame()) {
+        pack_frame(data_blocks[data_block_index], frame_buffer);
+        sender.read_frame(frame_buffer);
+      }
+      if(receiver.frame_available()) {
+        receiver.frame_pull(frame_buffer);
+        unpack_frame(frame_buffer, out_buffer);
+        CHECK(out_buffer == data_blocks[data_block_index]);
+        data_block_index += 1;
+      }
+
+      channel_state = receiver.tick(channel_state);
+      channel_state = sender.tick(channel_state);
+    }
+
   }
 }
 
