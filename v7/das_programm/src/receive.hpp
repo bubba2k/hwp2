@@ -4,9 +4,7 @@
 
 enum class ReceiverPhase {
   AWAIT_BEGIN,
-  FETCH_CHECKSUM,
   RECEIVE,
-  CHECK,
 };
 
 class Receiver {

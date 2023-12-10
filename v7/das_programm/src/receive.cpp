@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cstdio>
+#include <numeric>
 
 #include "receive.hpp"
 #include "common.hpp"
@@ -35,9 +36,6 @@ unsigned char Receiver::get_data_bits(unsigned char channel_state) {
 }
 
 unsigned char Receiver::await_begin_phase(unsigned char channel_state) {
-  // TODO: Receive a full byte here, check whether it is a BEGIN 
-  // control sequence, if so, change the phase to RECEIVE
-  
   unsigned char new_channel_state = channel_state;
   // Send ACK here (or not)
   if(send_ack) {
@@ -80,40 +78,6 @@ unsigned char Receiver::await_begin_phase(unsigned char channel_state) {
   }
 
   return new_channel_state;
-}
-
-unsigned char Receiver::fetch_checksum_phase(unsigned char channel_state) {
-  // TODO: Implement this
-  return channel_state;
-}
-
-unsigned char Receiver::check_phase(unsigned char channel_state) {
-  // TODO: For testing purposes, we simply skip this phase for now
-  // and always send ACK, as if the check was successful.
-  phase = ReceiverPhase::AWAIT_BEGIN;
-  send_ack = true;
-  frame_ready = true;
-  return channel_state;
-
-  // At this point, we have received a full frame. We shall test if 
-  // it is valid, and (not) send ACK accordingly...
-  bool valid = false;
-
-  // TODO: Check whether its actually valid here. (Checksum or whatever)
-
-  if(valid) {
-    frame_ready = true;
-
-    // TODO: Send ACK here!
-  } else {
-    // TODO: Do *not* send ACK here!
-  
-    // All has failed, wipe the frame buffer...
-    byte_buffer.clear();
-  }
-
-  // 'ight, wait for the next frame to begin.
-  phase = ReceiverPhase::AWAIT_BEGIN;
 }
 
 unsigned char Receiver::receive_phase(unsigned char channel_state) {
@@ -165,7 +129,27 @@ unsigned char Receiver::receive_phase(unsigned char channel_state) {
           // Frame end... proceed with check phase...
           case ControlSeq::END:
             fprintf(stderr, "RECV_RECEIVE: Going to CHECK_PHASE\n");
-            phase = ReceiverPhase::CHECK;
+
+            // Check if the checksum works out here...
+            // Checksums exclude the first BEGIN byte, the checksum byte itself,
+            // and the END byte. Note that the END byte is not in the buffer yet
+            // so we accumulate all the way to the end.
+            unsigned char calculated_checksum = 
+              std::accumulate(byte_buffer.begin() + 2, byte_buffer.end(), 0);
+            unsigned char received_checksum = byte_buffer[1];
+
+            if(received_checksum == calculated_checksum) {     
+              fprintf(stderr, "RECV_RECEIVE: Check success, sending ACK\n");
+              phase = ReceiverPhase::AWAIT_BEGIN;
+              send_ack = true;
+              frame_ready = true;
+            }
+            else {
+              fprintf(stderr, "RECV_RECEIVE: Check failed!\n");
+              phase = ReceiverPhase::AWAIT_BEGIN;
+              send_ack = false;
+              frame_ready = false;
+            }
             break;
         }
       }
@@ -186,12 +170,6 @@ unsigned char Receiver::tick(unsigned char channel_state) {
       break;
     case ReceiverPhase::AWAIT_BEGIN:
       return await_begin_phase(channel_state);
-      break;
-    case ReceiverPhase::CHECK:
-      return check_phase(channel_state);
-      break;
-    case ReceiverPhase::FETCH_CHECKSUM:
-      return fetch_checksum_phase(channel_state);
       break;
     default: // This should never happen
       fprintf(stderr, "RECV_TICK: ERROR: Default case!!!\n");
