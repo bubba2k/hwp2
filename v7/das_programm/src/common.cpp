@@ -18,7 +18,7 @@ bool operator==(const std::vector<unsigned char> a, const std::vector<unsigned c
 }
 
 void print_byte_vector(FILE *stream, const std::string prefix, const std::vector<unsigned char>& vec) {
-  fprintf(stream, prefix.c_str());
+  fprintf(stream, "%s\n", prefix.c_str());
   for(const auto& byte : vec) {
     fprintf(stream, "0x%X, ", byte);
   }

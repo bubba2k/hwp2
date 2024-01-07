@@ -1,11 +1,14 @@
 #include "common.hpp"
 #include "send.hpp"
 #include "receive.hpp"
+#include "pack.hpp"
 
 #include <vector>
 #include <string>
 #include <fstream>
 
+// Remember, we split our 8 bits in half, 4 for sending, 4 for receiving.
+// The following three functions help with this matter.
 unsigned char get_sender_bits(unsigned char channel_state, unsigned int sender_offset) {
     return (channel_state >> (4 * sender_offset)) & 0xff;
 }
@@ -21,12 +24,36 @@ unsigned char assemble_channel_bits(unsigned char sender_bits, unsigned char rec
     return sender_byte | receiver_byte;
 }
 
+// Utility functions to read and write byte vectors from/to filestreams.
+std::vector<unsigned char> read_bytes_from_file(std::ifstream& file_stream, std::size_t num_bytes) {
+    std::vector<char> buffer(num_bytes);
+
+    // Read bytes from the file stream into the buffer
+    file_stream.read(buffer.data(), num_bytes);
+
+    // Resize the vector to the actual number of bytes read
+    buffer.resize(file_stream.gcount());
+
+    return std::vector<unsigned char>(buffer.begin(), buffer.end());
+}
+
+void write_bytes_to_file(std::ofstream& file_stream, const std::vector<unsigned char>& bytes) {
+    // Have to perform this cast... unfortunately
+    std::vector<char> buffer(bytes.begin(), bytes.end());
+
+    // Write out all the bytes
+    file_stream.write(buffer.data(), bytes.size());
+}
+
+// Arbitrarily chosen number of bytes of data packed to each frame.
+static const std::size_t BLOCK_SIZE = 4096;
+
 int main(int argc, char *argv[]) {
     // What channel to send on?
     unsigned char sender_offset = std::stoi(argv[3]);
 
-    std::fstream infile(argv[1]);
-    std::fstream outfile(argv[2]);
+    std::ifstream infile(argv[1]);
+    std::ofstream outfile(argv[2]);
 
     // TODO: B15F setup here
 
@@ -37,17 +64,24 @@ int main(int argc, char *argv[]) {
                   sender_bits = 0x0,
                   receiver_bits = 0x0;
 
-    std::vector<unsigned char> inframe, outframe;
+    static std::vector<unsigned char> inframe, outframe;
 
     while(true) {
 
         if(sender.need_frame()) {
-            // TODO: Read data from infile and pack it to frame here.
+            auto data = read_bytes_from_file(infile, BLOCK_SIZE);
+            pack_frame(data, inframe);
             sender.read_frame(inframe);
+
+            // TODO: What if end of infile is reached?
         }
         if(receiver.frame_available()) {
+            std::vector<unsigned char> data;
             receiver.frame_pull(outframe);
+            unpack_frame(outframe, data);
+            write_bytes_to_file(outfile, data);
 
+            // TODO: What if end of outfile is reached?
         }
 
         sender_bits   = sender.tick(get_sender_bits(channel_state, sender_offset));
