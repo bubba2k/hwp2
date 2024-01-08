@@ -167,14 +167,11 @@ unsigned char Receiver::tick(unsigned char channel_state) {
   switch(phase) {
     case ReceiverPhase::RECEIVE:
       return receive_phase(channel_state);
-      break;
     case ReceiverPhase::AWAIT_BEGIN:
       return await_begin_phase(channel_state);
-      break;
     default: // This should never happen
       fprintf(stderr, "RECV_TICK: ERROR: Default case!!!\n");
       return channel_state;
-      break;
   }
 }
 

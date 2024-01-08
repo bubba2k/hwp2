@@ -26,7 +26,7 @@ int main() {
 
   unsigned char channel_state = 0x0;
 
-  pack_frame(in_data_buffer, in_frame_buffer);;
+  pack_frame(in_data_buffer, in_frame_buffer);
   sender.read_frame(in_frame_buffer);
 
   unsigned i = 0;
