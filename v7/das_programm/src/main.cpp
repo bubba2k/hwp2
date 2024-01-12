@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <b15f/b15f.h>
 
 // Remember, we split our 8 bits in half, 4 for sending, 4 for receiving.
 // The following three functions help with this matter.
@@ -49,13 +50,26 @@ void write_bytes_to_file(std::ofstream& file_stream, const std::vector<unsigned 
 static const std::size_t BLOCK_SIZE = 4096;
 
 int main(int argc, char *argv[]) {
+
+	if(argc != 4) {
+		fprintf(stderr, "Usage: %s <infile> <outfile> <sender_offset>\n", argv[0]);
+		std::exit(1);
+	}
+
     // What channel to send on?
     unsigned char sender_offset = std::stoi(argv[3]);
+	if(!(sender_offset == 1 || sender_offset == 0)) {
+		fprintf(stderr, "Sender offset must be 0 or 1!\n");
+		std::exit(1);
+	}
 
     std::ifstream infile(argv[1]);
     std::ofstream outfile(argv[2]);
 
-    // TODO: B15F setup here
+    // B15F setup here
+	B15F& drv = B15F::getInstance();
+	unsigned char ddra_mask = (sender_offset == 0 ? 0b01001011 : 0b10110100);
+	drv.setRegister(&DDRA, ddra_mask);
 
     Sender sender;
     Receiver receiver;
@@ -67,6 +81,8 @@ int main(int argc, char *argv[]) {
     static std::vector<unsigned char> inframe, outframe;
 
     while(true) {
+
+		channel_state = drv.getRegister(&PORTA);
 
         if(sender.need_frame()) {
             auto data = read_bytes_from_file(infile, BLOCK_SIZE);
@@ -89,7 +105,7 @@ int main(int argc, char *argv[]) {
 
         channel_state = assemble_channel_bits(sender_bits, receiver_bits, sender_offset);
 
-        // TODO: B15F code to read and set channel state here
+		drv.setRegister(&PORTA, channel_state);
     }
 
     return 0;
