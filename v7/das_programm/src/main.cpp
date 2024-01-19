@@ -3,6 +3,7 @@
 #include "receive.hpp"
 #include "pack.hpp"
 
+#include <bitset>
 #include <vector>
 #include <string>
 #include <fstream>
@@ -11,18 +12,18 @@
 // Remember, we split our 8 bits in half, 4 for sending, 4 for receiving.
 // The following three functions help with this matter.
 unsigned char get_sender_bits(unsigned char channel_state, unsigned int sender_offset) {
-    return (channel_state >> (4 * sender_offset)) & 0xff;
+    return (channel_state >> (4 * sender_offset)) & 0x0f;
 }
 
 unsigned char get_receiver_bits(unsigned char channel_state, unsigned int sender_offset) {
-    return (channel_state >> (4 * (1 - sender_offset))) & 0xff;
+    return (channel_state >> (4 * (1 - sender_offset))) & 0x0f;
 }
 
-unsigned char assemble_channel_bits(unsigned char sender_bits, unsigned char receiver_bits, unsigned int sender_offset) {
+unsigned char assemble_channel_bits(const unsigned char sender_bits, const unsigned char receiver_bits, const unsigned int sender_offset) {
     unsigned char sender_byte   = sender_bits   << (sender_offset * 4);
     unsigned char receiver_byte = receiver_bits << ((1 - sender_offset) * 4);
 
-    return sender_byte | receiver_byte;
+    return (sender_byte | receiver_byte);
 }
 
 // Utility functions to read and write byte vectors from/to filestreams.
@@ -57,7 +58,7 @@ int main(int argc, char *argv[]) {
 	}
 
     // What channel to send on?
-    unsigned char sender_offset = std::stoi(argv[3]);
+    const unsigned char sender_offset = std::stoi(argv[3]);
 	if(!(sender_offset == 1 || sender_offset == 0)) {
 		fprintf(stderr, "Sender offset must be 0 or 1!\n");
 		std::exit(1);
@@ -71,6 +72,12 @@ int main(int argc, char *argv[]) {
 	unsigned char ddra_mask = (sender_offset == 0 ? 0b01001011 : 0b10110100);
 	drv.setRegister(&DDRA, ddra_mask);
 
+	// Set all bits to zero on startup
+	drv.setRegister(&PORTA, 0x0);
+
+	std::cerr << "Starting with sender offset " << int(sender_offset) << ", DDRA mask " << std::bitset<8>(ddra_mask) << std::endl;
+
+	
     Sender sender;
     Receiver receiver;
 
@@ -80,9 +87,12 @@ int main(int argc, char *argv[]) {
 
     static std::vector<unsigned char> inframe, outframe;
 
-    while(true) {
+    long unsigned timer = 0;
 
-		channel_state = drv.getRegister(&PORTA);
+    while(true) {
+	timer++;
+
+	channel_state = drv.getRegister(&PORTA);
 
         if(sender.need_frame()) {
             auto data = read_bytes_from_file(infile, BLOCK_SIZE);
@@ -100,12 +110,15 @@ int main(int argc, char *argv[]) {
             // TODO: What if end of outfile is reached?
         }
 
+
         sender_bits   = sender.tick(get_sender_bits(channel_state, sender_offset));
         receiver_bits = receiver.tick(get_receiver_bits(channel_state, sender_offset));
 
         channel_state = assemble_channel_bits(sender_bits, receiver_bits, sender_offset);
 
-		drv.setRegister(&PORTA, channel_state);
+	std::cerr << std::bitset<8>(channel_state) << std::endl;
+
+	drv.setRegister(&PORTA, channel_state);
     }
 
     return 0;
