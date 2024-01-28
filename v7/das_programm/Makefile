@@ -12,6 +12,9 @@ build_tests:
 main:
 	g++ $(CXXFLAGS_DEBUG) src/send.cpp src/receive.cpp src/main.cpp src/common.cpp src/pack.cpp -lb15fdrv -o build/main
 
+arduino_main:
+	g++ $(CXXFLAGS_DEBUG) src/send.cpp src/receive.cpp src/SerialPort.cpp src/main_arduino.cpp src/common.cpp src/pack.cpp -o build/main
+
 run:
 	./build/test
 
