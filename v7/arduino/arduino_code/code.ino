@@ -3,15 +3,15 @@
 // Port B0-3: senden   (Arduino D8-D11)
 
 uint8_t read_channel() {
-  uint8_t send_bits = PINC & 0xF;
-  uint8_t receive_bits = PINB & 0xF;
+  uint8_t send_bits = PINB & 0xF;
+  uint8_t receive_bits = PINC & 0xF;
 
-  return send_bits | (receive_bits >> 4);
+  return send_bits | (receive_bits << 4);
 }
 
 void set_channel_split(uint8_t send_bits, uint8_t receive_bits) {
-  PORTC = send_bits & 0xF;
-  PORTB = receive_bits & 0xF;
+  PORTB = send_bits & 0xF;
+  PORTC = receive_bits & 0xF;
 }
 
 void set_channel(uint8_t value) {
