@@ -49,7 +49,7 @@ void write_bytes_to_file(std::ostream& file_stream, const std::vector<unsigned c
 }
 
 // Arbitrarily chosen number of bytes of data packed to each frame.
-static const std::size_t BLOCK_SIZE = 4096;
+static const std::size_t BLOCK_SIZE = 8;
 
 int main(int argc, char *argv[]) {
 
@@ -78,9 +78,12 @@ int main(int argc, char *argv[]) {
     long unsigned timer = 0;
 
     while(true) {
+        sleep(1);
         timer++;
 
         // Read the current channel state.
+        // TODO: What if no byte is available from serial?
+        // Need to handle
         channel_state = serial.receive_byte();
 
         // Do all our logic...
@@ -109,6 +112,7 @@ int main(int argc, char *argv[]) {
         std::cerr << std::bitset<8>(channel_state) << std::endl;
 
         // Write out the new channel state.
+        // TODO: What if writing to serial fails?
         serial.send_byte(channel_state);
     }
 
