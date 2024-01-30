@@ -1,4 +1,4 @@
-CXXFLAGS_DEBUG = -std=c++20 -Wextra -Wall -g -fsanitize=address
+CXXFLAGS_DEBUG = -std=c++20 -Wextra -Wall -g
 
 default: build_dir
 	g++ $(CXXFLAGS_DEBUG) src/send.cpp src/receive.cpp src/test.cpp src/common.cpp src/pack.cpp -o build/test
