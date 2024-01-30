@@ -22,9 +22,13 @@ Sender::Sender() {
   _need_new_frame = true;
   _have_frame = false;
   _done = false;
+  _done_after_this_frame = false;
 }
 
-bool Sender::read_frame(const std::vector<unsigned char>& frame) {
+bool Sender::read_frame(const std::vector<unsigned char>& frame, bool signal_eof) {
+  // If this is the last frame of the instream:
+  _done_after_this_frame = signal_eof;
+
   // Do not read in a new frame if we do not need one yet.
   if(!need_frame()) return false;
 
@@ -86,6 +90,9 @@ unsigned char Sender::send_phase(unsigned char channel_state) {
     fprintf(stderr, "SENDER: Entering AWAIT_ACK\n");
     phase = SenderPhase::AWAIT_ACK;
 
+    // If this was the last phase, signal done.
+    if(_done_after_this_frame) _done = true;
+
     return channel_state;
   }
 
@@ -118,6 +125,7 @@ unsigned char Sender::send_phase(unsigned char channel_state) {
 }
 
 unsigned char Sender::tick(unsigned char channel_state) {
+  // If transmission is already done, do not do anything.
   if(is_done()) return channel_state;
 
   switch(phase) {

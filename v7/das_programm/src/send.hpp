@@ -17,7 +17,7 @@ class Sender {
   unsigned int n_bits_sent, n_bytes_sent;
   bool last_clock;
 
-  bool _done;
+  bool _done, _done_after_this_frame;
   bool _need_new_frame;
   bool _have_frame;
 
