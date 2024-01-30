@@ -33,6 +33,17 @@ unsigned char Receiver::get_data_bits(unsigned char channel_state) {
   return channel_state & DATA_BIT_MASK;
 }
 
+// This state only occurs if EOF signal was received.
+unsigned char Receiver::send_ack_and_end(unsigned char channel_state) {
+  unsigned char new_channel_state = channel_state;
+  new_channel_state |= ACK_BIT_MASK;
+  if(n_ticks_ack_sent++ > 100) {
+    _done = true;
+    fprintf(stderr, "RECV_SEND_ACK_AND_END: Done sending ACK, going offline...\n");
+  }
+  return new_channel_state;
+}
+
 unsigned char Receiver::await_begin_phase(unsigned char channel_state) {
   unsigned char new_channel_state = channel_state;
   // Send ACK here (or not)
@@ -117,6 +128,10 @@ unsigned char Receiver::receive_phase(unsigned char channel_state) {
       else {  // Handle the escape sequences.
         switch(static_cast<ControlSeq>(bit_buffer)) {
           // We shall ignore the next control sequence ...
+          case ControlSeq::END_OF_FILE:
+            _done_after_this_frame = true;
+            fprintf(stderr, "RECV_RECEIVE: Received EOF signal.\n");
+            break;
           case ControlSeq::ESCAPE:
             ignore_next_control_sequence = true;
             break;
@@ -141,10 +156,14 @@ unsigned char Receiver::receive_phase(unsigned char channel_state) {
               phase = ReceiverPhase::AWAIT_BEGIN;
               send_ack = true;
               frame_ready = true;
+
+              // If this was the last frame, move on to send ACK, then end.
+              if(_done_after_this_frame) phase = ReceiverPhase::SEND_ACK_AND_END;
             }
             else {
-              fprintf(stderr, "RECV_RECEIVE: Check failed!\n");
+              fprintf(stderr, "RECV_RECEIVE: Check failed, requesting resend!\n");
               phase = ReceiverPhase::AWAIT_BEGIN;
+              _done_after_this_frame = false;
               send_ack = false;
               frame_ready = false;
             }
@@ -170,6 +189,9 @@ unsigned char Receiver::tick(unsigned char channel_state) {
       break;
     case ReceiverPhase::AWAIT_BEGIN:
       return await_begin_phase(channel_state);
+      break;
+    case ReceiverPhase::SEND_ACK_AND_END:
+      return send_ack_and_end(channel_state);
       break;
     default: // This should never happen
       fprintf(stderr, "RECV_TICK: ERROR: Default case!!!\n");

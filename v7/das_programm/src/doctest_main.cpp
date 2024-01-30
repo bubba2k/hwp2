@@ -38,9 +38,10 @@ TEST_CASE("Pack/Unpack check")
     for(unsigned i = 0; i < data_vec_array.size(); i++) {
 
       // print_byte_vector(stderr, "Expected: ", data_vec_array[i]);
-      pack_frame(data_vec_array[i], frame_buffer);
+      pack_frame(data_vec_array[i], false, frame_buffer);
       // print_byte_vector(stderr, "Frame buffer: ", frame_buffer);
-      unpack_frame(frame_buffer, out_buffer);
+      bool eof = false;
+      unpack_frame(frame_buffer, eof, out_buffer);
       // print_byte_vector(stderr, "Data buffer: ", out_buffer);
 
       CHECK(data_vec_array[i] == out_buffer);
@@ -55,7 +56,7 @@ TEST_CASE("Pack/Unpack check")
                                           0xa, 0xb, 0xc, 0xd, 0xe, 0xf,
                                           static_cast<unsigned char>(ControlSeq::END) };
 
-    pack_frame(data, frame_buffer);
+    pack_frame(data, false, frame_buffer);
 
     std::cerr << "Frame buffer size: " << frame_buffer.size() << std::endl;
     print_byte_vector(stderr, "Expected: ", expected);
@@ -78,8 +79,8 @@ TEST_CASE("Receive/Send test") {
     Receiver receiver;
     Sender sender;
 
-    pack_frame(data, frame_buffer);
-    sender.read_frame(frame_buffer);
+    pack_frame(data, false, frame_buffer);
+    sender.read_frame(frame_buffer, false);
 
     CHECK(frame_buffer == expected_frame);
 
@@ -93,7 +94,8 @@ TEST_CASE("Receive/Send test") {
     receiver.frame_pull(frame_buffer);
     CHECK(frame_buffer == expected_frame);
 
-    unpack_frame(frame_buffer, out_buffer);
+    bool eof;
+    unpack_frame(frame_buffer, eof, out_buffer);
     CHECK(out_buffer == data);
   }
 
@@ -111,12 +113,13 @@ TEST_CASE("Receive/Send test") {
     unsigned char channel_state = 0x0;
     while(data_block_index < data_blocks.size()) {
       if(sender.need_frame()) {
-        pack_frame(data_blocks[data_block_index], frame_buffer);
-        sender.read_frame(frame_buffer);
+        pack_frame(data_blocks[data_block_index], false, frame_buffer);
+        sender.read_frame(frame_buffer, false);
       }
       if(receiver.frame_available()) {
         receiver.frame_pull(frame_buffer);
-        unpack_frame(frame_buffer, out_buffer);
+        bool eof;
+        unpack_frame(frame_buffer, eof, out_buffer);
         CHECK(out_buffer == data_blocks[data_block_index]);
         data_block_index += 1;
       }

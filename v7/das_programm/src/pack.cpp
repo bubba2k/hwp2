@@ -14,7 +14,7 @@
 // #include "../extern/doctest.h"
 
 // Create a frame from the data
-void pack_frame(const std::vector<unsigned char>& data, std::vector<unsigned char>& frame) {
+void pack_frame(const std::vector<unsigned char>& data, bool signal_eof, std::vector<unsigned char>& frame) {
   
   frame.clear();
   // Push the BEGIN sequence.
@@ -32,6 +32,9 @@ void pack_frame(const std::vector<unsigned char>& data, std::vector<unsigned cha
     frame.push_back(byte);
   }
 
+  // Push the EOF sequence if we are done.
+  if(signal_eof) frame.push_back(static_cast<unsigned char>(ControlSeq::END_OF_FILE));
+
   // Push the END sequence.
   frame.push_back(static_cast<unsigned char>(ControlSeq::END));
 
@@ -40,7 +43,7 @@ void pack_frame(const std::vector<unsigned char>& data, std::vector<unsigned cha
   frame[1] = checksum;
 }
 
-void unpack_frame(const std::vector<unsigned char>& frame, std::vector<unsigned char>& data) {
+void unpack_frame(const std::vector<unsigned char>& frame, bool& signal_eof, std::vector<unsigned char>& data) {
   data.clear();
 
   // Get some iterators ignoring the BEGIN, CHECKSUM, and END sequences.
@@ -64,8 +67,11 @@ void unpack_frame(const std::vector<unsigned char>& frame, std::vector<unsigned 
         if(byte == static_cast<unsigned char>(ControlSeq::ESCAPE)) {
           ignore_next_control_sequence = true;
           continue;
+        } // On EOF control sequence, signal eof
+        else if(byte == static_cast<unsigned char>(ControlSeq::END_OF_FILE)) {
+          signal_eof = true;
         }
-        // Otherwise, do not skip this control sequence and skip to next byte and skip to next byte.
+        // Then skip to next byte.
         ignore_next_control_sequence = false;
         continue;
       }
@@ -74,5 +80,4 @@ void unpack_frame(const std::vector<unsigned char>& frame, std::vector<unsigned 
     data.push_back(byte);
   }
 }
-
 

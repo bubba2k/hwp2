@@ -28,7 +28,7 @@ class Sender {
   inline bool is_done() { return _done; }
   unsigned char tick(unsigned char last_read);
   bool need_frame();
-  bool read_frame(const std::vector<unsigned char>& frame);
+  bool read_frame(const std::vector<unsigned char>& frame, bool);
   Sender();
 };
 

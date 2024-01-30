@@ -59,6 +59,12 @@ unsigned char Sender::await_ack_phase(unsigned char channel_state) {
     fprintf(stderr, "SENDER: Received ACK!\n");
     phase = SenderPhase::SEND;
     n_ticks_in_ack_wait = 0;
+
+    // If this was the last frame, quit instead.
+    if(_done_after_this_frame) {
+      _done = true;
+      fprintf(stderr, "Sender_done\n");
+    }
   }
   else if(n_ticks_in_ack_wait > 10) { // Counting ticks is a cheap hack...
     // Seems like we are not getting our ACK... Resend the current frame.
@@ -89,9 +95,6 @@ unsigned char Sender::send_phase(unsigned char channel_state) {
   if(n_bits_sent == 8 && n_bytes_sent == byte_buffer.size()) {
     fprintf(stderr, "SENDER: Entering AWAIT_ACK\n");
     phase = SenderPhase::AWAIT_ACK;
-
-    // If this was the last phase, signal done.
-    if(_done_after_this_frame) _done = true;
 
     return channel_state;
   }

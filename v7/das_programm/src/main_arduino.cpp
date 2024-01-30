@@ -89,15 +89,17 @@ int main(int argc, char *argv[]) {
         // Do all our logic...
         if(sender.need_frame()) {
             auto data = read_bytes_from_file(infile, BLOCK_SIZE);
-            pack_frame(data, inframe);
-            sender.read_frame(inframe);
+            const bool signal_eof = (data.size() < BLOCK_SIZE) ? true : false;
+            pack_frame(data, signal_eof, inframe);
+            sender.read_frame(inframe, signal_eof);
 
             // TODO: What if end of infile is reached?
         }
         if(receiver.frame_available()) {
             std::vector<unsigned char> data;
             receiver.frame_pull(outframe);
-            unpack_frame(outframe, data);
+            bool signal_eof = false;
+            unpack_frame(outframe, signal_eof, data);
             write_bytes_to_file(outfile, data);
 
             // TODO: What if end of outfile is reached?

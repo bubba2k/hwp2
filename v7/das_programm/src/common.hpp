@@ -6,7 +6,8 @@
 enum class ControlSeq : unsigned char {
   ESCAPE = 0x1,
   BEGIN  = 0x2,
-  END    = 0x3
+  END    = 0x3,
+  END_OF_FILE = 0x4
 };
 
 bool is_control_sequence(unsigned char byte);

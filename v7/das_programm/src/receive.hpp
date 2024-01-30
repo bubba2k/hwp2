@@ -5,6 +5,7 @@
 enum class ReceiverPhase {
   AWAIT_BEGIN,
   RECEIVE,
+  SEND_ACK_AND_END
 };
 
 class Receiver {
@@ -18,6 +19,7 @@ class Receiver {
   bool ignore_next_control_sequence;
   bool send_ack;
   bool _done;
+  bool _done_after_this_frame;
 
   bool frame_ready;
 
@@ -27,9 +29,8 @@ class Receiver {
 
   // State machine phases
   unsigned char await_begin_phase(unsigned char channel_state);
-  unsigned char fetch_checksum_phase(unsigned char channel_state);
   unsigned char receive_phase(unsigned char channel_state);
-  unsigned char check_phase(unsigned char channel_state);
+  unsigned char send_ack_and_end(unsigned char channel_state);
 
   public:
   inline bool is_done() const { return _done; }
