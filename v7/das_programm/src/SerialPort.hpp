@@ -24,8 +24,8 @@ public:
 
     void configure();
     void sendBytes(const uint8_t*, size_t);
-    void send_byte(const uint8_t);
-    uint8_t receive_byte();
+    void send_byte(const uint8_t, bool& success);
+    uint8_t receive_byte(bool& success);
     void makeBufferNotAvailable();
     void receive8Bytes();
 

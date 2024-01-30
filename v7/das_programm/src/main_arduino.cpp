@@ -82,9 +82,9 @@ int main(int argc, char *argv[]) {
         timer++;
 
         // Read the current channel state.
-        // TODO: What if no byte is available from serial?
-        // Need to handle
-        channel_state = serial.receive_byte();
+        bool receive_success = false;
+        uint8_t received = serial.receive_byte(receive_success);
+        if(receive_success) channel_state = received;
 
         // Do all our logic...
         if(sender.need_frame()) {
@@ -113,7 +113,8 @@ int main(int argc, char *argv[]) {
 
         // Write out the new channel state.
         // TODO: What if writing to serial fails?
-        serial.send_byte(channel_state);
+        bool send_success;
+        serial.send_byte(channel_state, send_success);
     }
 
     return 0;

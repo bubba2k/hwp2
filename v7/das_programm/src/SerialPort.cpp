@@ -50,23 +50,28 @@ void SerialPort::sendBytes(const uint8_t* data , size_t size) {
     }
 }
 
-void SerialPort::send_byte(const uint8_t data) {
+void SerialPort::send_byte(const uint8_t data, bool& success) {
     if (write(fd, &data, 1) == -1) {
+        success = false;
         std::cerr << "Error writing to serial port.\n";
     }
 }
 
-uint8_t SerialPort::receive_byte() {
+uint8_t SerialPort::receive_byte(bool& success) {
     unsigned int n_bytes_available;
     uint8_t received_byte;
     ioctl(fd, FIONREAD, &n_bytes_available);
 
-    if(n_bytes_available > 0)
+    if(n_bytes_available > 0) {
         read(fd, &received_byte, 1);
-    else
+        success = true;
+        return received_byte;
+    }
+    else {
         std::cerr << "Failed to read a byte!" << std::endl;
-
-    return received_byte;
+        success = false;
+        return 0;
+    }
 }
 
 void SerialPort::receive8Bytes() {
