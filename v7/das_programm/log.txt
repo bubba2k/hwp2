@@ -1,0 +1,17 @@
+[B15F] Verwende Adapter: /dev/ttyUSB0
+[B15F] Stelle Verbindung mit Adapter her... OK
+[B15F] Teste Verbindung... OK
+[B15F] AVR Firmware Version: Dec  3 2019 um 12:41:39 Uhr (boardinfo.h)
+Sending with sender channel offset 
+High bits send, low bits receive
+00000000	S0000	R0000
+00000000	S0000	R0000
+00000000	S0000	R0000
+00000000	S0000	R0000
+00000000	S0000	R0000
+00000000	S0000	R0000
+00000000	S0000	R0000
+00000000	S0000	R0000
+00000000	S0000	R0000
+00000000	S0000	R0000
+00000000	S0000	R0000

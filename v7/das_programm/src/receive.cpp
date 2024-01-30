@@ -70,9 +70,11 @@ unsigned char Receiver::await_begin_phase(unsigned char channel_state) {
     if(bit_buffer == (unsigned char) ControlSeq::BEGIN) {
       byte_buffer.push_back(bit_buffer);    // Store the byte
       phase = ReceiverPhase::RECEIVE;
+      // Unset ACK bit!
+      new_channel_state &= ~ACK_BIT_MASK;
     }
 
-    fprintf(stderr, "RECV_AWAIT_BEGIN: Received 0x%x\n", bit_buffer);
+    fprintf(stderr, "RECV_AWAIT_BEGIN: Received 0x%x (%c)\n", bit_buffer, bit_buffer);
 
     n_bits_received = 0;
   }
@@ -108,7 +110,7 @@ unsigned char Receiver::receive_phase(unsigned char channel_state) {
   // If we received a full byte at this point...
   if(n_bits_received == 8) {
 
-    fprintf(stderr, "RECV_RECEIVE: Received 0x%x\n", bit_buffer);
+    fprintf(stderr, "RECV_RECEIVE: Received 0x%x (%c)\n", bit_buffer, bit_buffer);
     // Check whether it is a control sequence... and handle it appropriately
     if(is_control_sequence(bit_buffer)) {
 

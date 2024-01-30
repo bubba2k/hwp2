@@ -1,0 +1,3 @@
+- ACK wird nach erstem Mal IMMER gesendet
+- DUPLEX geht nicht
+- Terminieren bei Dateiende geht nicht
