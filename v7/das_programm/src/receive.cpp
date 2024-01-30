@@ -6,8 +6,6 @@
 #include "receive.hpp"
 #include "common.hpp"
 
-// TODO: Implement fetch_checksum_phase, check_phase
-//
 // Masks for channel state    76543210
 #define DATA_BIT_MASK  0b00000011
 #define ACK_BIT_MASK   0b00000100
@@ -164,6 +162,8 @@ unsigned char Receiver::receive_phase(unsigned char channel_state) {
 }
 
 unsigned char Receiver::tick(unsigned char channel_state) {
+  if(is_done()) return channel_state;
+
   switch(phase) {
     case ReceiverPhase::RECEIVE:
       return receive_phase(channel_state);

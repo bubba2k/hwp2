@@ -21,6 +21,7 @@ Sender::Sender() {
   last_clock = false;
   _need_new_frame = true;
   _have_frame = false;
+  _done = false;
 }
 
 bool Sender::read_frame(const std::vector<unsigned char>& frame) {
@@ -117,6 +118,8 @@ unsigned char Sender::send_phase(unsigned char channel_state) {
 }
 
 unsigned char Sender::tick(unsigned char channel_state) {
+  if(is_done()) return channel_state;
+
   switch(phase) {
     case SenderPhase::SEND:
       return send_phase(channel_state);

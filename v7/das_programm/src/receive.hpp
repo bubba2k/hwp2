@@ -17,6 +17,7 @@ class Receiver {
   bool last_clock;
   bool ignore_next_control_sequence;
   bool send_ack;
+  bool _done;
 
   bool frame_ready;
 
@@ -31,6 +32,7 @@ class Receiver {
   unsigned char check_phase(unsigned char channel_state);
 
   public:
+  inline bool is_done() const { return _done; }
   bool frame_available();
   bool frame_pull(std::vector<unsigned char>& destination);
   unsigned char tick(unsigned char channel_state);

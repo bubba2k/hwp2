@@ -17,6 +17,7 @@ class Sender {
   unsigned int n_bits_sent, n_bytes_sent;
   bool last_clock;
 
+  bool _done;
   bool _need_new_frame;
   bool _have_frame;
 
@@ -24,6 +25,7 @@ class Sender {
   unsigned char await_ack_phase(unsigned char channel_state);
 
   public:
+  inline bool is_done() { return _done; }
   unsigned char tick(unsigned char last_read);
   bool need_frame();
   bool read_frame(const std::vector<unsigned char>& frame);
