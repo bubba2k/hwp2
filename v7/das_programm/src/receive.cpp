@@ -153,6 +153,9 @@ unsigned char Receiver::receive_phase(unsigned char channel_state) {
               frame_ready = false;
 	      // Clear the byte buffer... need to get the bytes again.
 	      byte_buffer.clear();
+
+	      n_bits_received = 0;
+	      return channel_state;
             }
             break;
         }
