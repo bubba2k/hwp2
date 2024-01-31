@@ -151,6 +151,8 @@ unsigned char Receiver::receive_phase(unsigned char channel_state) {
               phase = ReceiverPhase::AWAIT_BEGIN;
               send_ack = false;
               frame_ready = false;
+	      // Clear the byte buffer... need to get the bytes again.
+	      byte_buffer.clear();
             }
             break;
         }

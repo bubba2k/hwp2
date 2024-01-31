@@ -1,0 +1,45 @@
+[B15F] Verwende Adapter: /dev/ttyUSB0
+[B15F] Stelle Verbindung mit Adapter her... OK
+[B15F] Teste Verbindung... OK
+[B15F] AVR Firmware Version: Jan 16 2020 um 10:08:32 Uhr (boardinfo.h)
+Sending with sender channel  offset 0
+DDRA 01001011
+High bits receive, low bits send
+RECV_AWAIT_BEGIN: Received 0x2 ()
+RECV_RECEIVE: Received 0x92 (’)
+RECV_RECEIVE: Received 0x4c (L)
+SENDER: Entering AWAIT_ACK
+RECV_RECEIVE: Received 0x6f (o)
+RECV_RECEIVE: Received 0x72 (r)
+SENDER: Did not receive ACK. Resending frame...
+RECV_RECEIVE: Received 0x65 (e)
+RECV_RECEIVE: Received 0x3 ()
+RECV_RECEIVE: Going to CHECK_PHASE
+RECV_RECEIVE: Check success, sending ACK
+RECV_AWAIT_BEGIN: Received 0x2 ()
+RECV_RECEIVE: Received 0x66 (f)
+RECV_RECEIVE: Received 0x6d (m)
+RECV_RECEIVE: Received 0x20 ( )
+SENDER: Entering AWAIT_ACK
+RECV_RECEIVE: Received 0x69 (i)
+RECV_RECEIVE: Received 0x70 (p)
+SENDER: Did not receive ACK. Resending frame...
+RECV_RECEIVE: Received 0x3 ()
+RECV_RECEIVE: Going to CHECK_PHASE
+RECV_RECEIVE: Check success, sending ACK
+RECV_AWAIT_BEGIN: Received 0x2 ()
+RECV_RECEIVE: Received 0x75 (u)
+RECV_RECEIVE: Received 0x73 (s)
+RECV_RECEIVE: Received 0x75 (u)
+SENDER: Entering AWAIT_ACK
+RECV_RECEIVE: Received 0x6d (m)
+RECV_RECEIVE: Received 0x20 ( )
+RECV_RECEIVE: Received 0x3 ()
+RECV_RECEIVE: Going to CHECK_PHASE
+RECV_RECEIVE: Check success, sending ACK
+SENDER: Did not receive ACK. Resending frame...
+RECV_AWAIT_BEGIN: Received 0x2 ()
+RECV_RECEIVE: Received 0xae (®)
+RECV_RECEIVE: Received 0x64 (d)
+RECV_RECEIVE: Received 0x6f (o)
+SENDER: Entering AWAIT_ACK

@@ -12,6 +12,34 @@
 #include <chrono>
 #include <thread>
 
+class Timer 
+{	// Courtesy of ChatGPT
+public:
+    // Constructor, takes the duration in milliseconds
+    explicit Timer(std::chrono::milliseconds duration) : duration_(duration) {};
+
+    // Start the timer
+    void start() {
+        start_time_ = std::chrono::high_resolution_clock::now();
+    }
+
+    // Check if the timer has elapsed
+    bool hasElapsed() const {
+        auto current_time = std::chrono::high_resolution_clock::now();
+        auto elapsed_time = std::chrono::duration_cast<std::chrono::milliseconds>(current_time - start_time_);
+        return elapsed_time >= duration_;
+    }
+
+    // Reset the timer
+    void reset() {
+        start_time_ = std::chrono::high_resolution_clock::now();
+    }
+
+private:
+    std::chrono::high_resolution_clock::time_point start_time_;
+    std::chrono::milliseconds duration_;
+};
+
 void sleep_ms(unsigned int ms) {
     std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
@@ -54,15 +82,14 @@ void write_bytes_to_file(std::ostream& file_stream, const std::vector<unsigned c
     file_stream.write(buffer.data(), bytes.size());
 }
 
-// Arbitrarily chosen number of bytes of data packed to each frame.
-static const std::size_t BLOCK_SIZE = 4;
 
 int main(int argc, char *argv[]) {
 
-	if(argc != 2) {
-		fprintf(stderr, "Usage: %s <sender_offset>\n", argv[0]);
+	if(argc != 4) {
+		fprintf(stderr, "Usage: %s <sender_offset> <block_size> <delay>\n", argv[0]);
 		std::exit(1);
 	}
+
 
     // What channel to send on?
     unsigned char sender_offset = std::stoi(argv[1]);
@@ -70,6 +97,9 @@ int main(int argc, char *argv[]) {
 		fprintf(stderr, "Sender offset must be 0 or 1!\n");
 		std::exit(1);
 	}
+
+	// Arbitrarily chosen number of bytes of data packed to each frame.
+	const std::size_t BLOCK_SIZE = std::stoi(argv[2]);
 
     std::istream &infile  = std::cin;
     std::ostream &outfile = std::cout;
@@ -102,15 +132,20 @@ int main(int argc, char *argv[]) {
                   receiver_bits = 0x0;
 
     bool sender_done = false;
+    bool sender_done_after_this_frame = false;
     bool receiver_done = false;
 
     static std::vector<unsigned char> inframe, outframe;
 
-    float delay = 0.1f;
+    float delay = std::stof(argv[3]);
+    unsigned int sender_delay_ticks = int(3 * (1.0f / delay));
+    sender_delay_ticks = std::clamp(int(sender_delay_ticks), 10, 100);
+    unsigned int delay_ms = (delay * 1000);
     unsigned long n_ticks_elapsed = 0;
-    while( !(sender_done && receiver_done) ) {
+    Timer timer{std::chrono::milliseconds(delay_ms)};
+    timer.start();
 
-	sleep_ms(delay * 1000);
+    while( !(sender_done && receiver_done) ) {
 
 	channel_state = drv.getRegister(&PINA);
 	// std::cerr << std::bitset<8>(channel_state) << "\t";
@@ -123,8 +158,9 @@ int main(int argc, char *argv[]) {
             // TODO: What if end of infile is reached?
 	    // If the data we attempt to send is of length zero, assume we are done.
 	    if(data.size() == 0) {
-		    sender_done = true;
-		    fprintf(stderr, "Sender is done\n.");
+		    if(sender_done_after_this_frame) sender_done = true;
+		    sender_done_after_this_frame = true;
+		    fprintf(stderr, "Sender is done.\n");
 	    }
         }
         if(receiver.frame_available() && !receiver_done) {
@@ -132,17 +168,24 @@ int main(int argc, char *argv[]) {
             receiver.frame_pull(outframe);
             unpack_frame(outframe, data);
             write_bytes_to_file(outfile, data);
+	    outfile.flush();
+
+	    
 
             // TODO: What if end of outfile is reached?
 	    // If the data we receive is of length zero, assume we are done.
 	    // (Three including control sequences.)
 	    if(data.size() < BLOCK_SIZE) {
 		    receiver_done = true;
-		    fprintf(stderr, "Receiver is done\n.");
+		    fprintf(stderr, "Receiver is done.\n");
 	    }
         }
 
-        if(n_ticks_elapsed++ > 10 && !sender_done)  {
+	// Wait for timer, then reset
+	while(!timer.hasElapsed());
+	timer.reset();
+
+        if((n_ticks_elapsed++ > sender_delay_ticks) && !sender_done)  {
 		// std::cerr << "\nSender bits read: " << 
 			// std::bitset<4>(get_sender_bits(channel_state, sender_offset))
 		       	// << std::endl;
@@ -163,9 +206,12 @@ int main(int argc, char *argv[]) {
 	drv.setRegister(&PORTA, channel_state);
     }
 
-    fprintf(stderr, "Transmission done. Flushing streams and exiting.");
-    outfile.flush();
+    fprintf(stderr, "Transmission done. Flushing streams and exiting.\n");
 
+    // Reset B15F pins after transmission end
+    // drv.setRegister(&DDRA, 0xFF);
+    // drv.setRegister(&PORTA, 0);
+    outfile.flush();
 
     return 0;
 }
