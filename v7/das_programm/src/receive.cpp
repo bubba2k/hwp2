@@ -112,7 +112,8 @@ unsigned char Receiver::receive_phase(unsigned char channel_state) {
 
     fprintf(stderr, "RECV_RECEIVE: Received 0x%x (%c)\n", bit_buffer, bit_buffer);
     // Check whether it is a control sequence... and handle it appropriately
-    if(is_control_sequence(bit_buffer)) {
+    // BUT make sure to ignore the CHECKSUM BYTE!!!!
+    if(is_control_sequence(bit_buffer) && !(byte_buffer.size() == 1)) {
 
       // Ignore this one, but don't ignore the next one, obviously.
       if(ignore_next_control_sequence) {

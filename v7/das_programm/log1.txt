@@ -6,7 +6,7 @@ Sending with sender channel  offset 1
 DDRA 10110100
 High bits send, low bits receive
 RECV_AWAIT_BEGIN: Received 0x2 ()
-RECV_RECEIVE: Received 0xf8 (ø)
+RECV_RECEIVE: Received 0xc3 (Ã)
 RECV_RECEIVE: Received 0x4c (L)
 RECV_RECEIVE: Received 0x6f (o)
 RECV_RECEIVE: Received 0x72 (r)
@@ -15,13 +15,6 @@ RECV_RECEIVE: Received 0x6d (m)
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x69 (i)
 RECV_RECEIVE: Received 0x70 (p)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0x23 (#)
 RECV_RECEIVE: Received 0x73 (s)
 RECV_RECEIVE: Received 0x75 (u)
 RECV_RECEIVE: Received 0x6d (m)
@@ -30,13 +23,6 @@ RECV_RECEIVE: Received 0x64 (d)
 RECV_RECEIVE: Received 0x6f (o)
 RECV_RECEIVE: Received 0x6c (l)
 RECV_RECEIVE: Received 0x6f (o)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0xd0 (Ð)
 RECV_RECEIVE: Received 0x72 (r)
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x73 (s)
@@ -45,13 +31,6 @@ RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x61 (a)
 RECV_RECEIVE: Received 0x6d (m)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0xd8 (Ø)
 RECV_RECEIVE: Received 0x65 (e)
 RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x2c (,)
@@ -64,9 +43,9 @@ RECV_RECEIVE: Received 0x3 ()
 RECV_RECEIVE: Going to CHECK_PHASE
 RECV_RECEIVE: Check success, sending ACK
 SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
 SENDER: Received ACK!
-RECV_RECEIVE: Received 0x2c (,)
+RECV_AWAIT_BEGIN: Received 0x2 ()
+RECV_RECEIVE: Received 0xf4 (ô)
 RECV_RECEIVE: Received 0x65 (e)
 RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x65 (e)
@@ -75,13 +54,6 @@ RECV_RECEIVE: Received 0x75 (u)
 RECV_RECEIVE: Received 0x72 (r)
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x73 (s)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0x4b (K)
 RECV_RECEIVE: Received 0x61 (a)
 RECV_RECEIVE: Received 0x64 (d)
 RECV_RECEIVE: Received 0x69 (i)
@@ -90,13 +62,6 @@ RECV_RECEIVE: Received 0x73 (s)
 RECV_RECEIVE: Received 0x63 (c)
 RECV_RECEIVE: Received 0x69 (i)
 RECV_RECEIVE: Received 0x6e (n)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0xd3 (Ó)
 RECV_RECEIVE: Received 0x67 (g)
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x65 (e)
@@ -105,13 +70,6 @@ RECV_RECEIVE: Received 0x69 (i)
 RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x72 (r)
 RECV_RECEIVE: Received 0x2c (,)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0xaa (ª)
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x73 (s)
 RECV_RECEIVE: Received 0x65 (e)
@@ -124,9 +82,9 @@ RECV_RECEIVE: Received 0x3 ()
 RECV_RECEIVE: Going to CHECK_PHASE
 RECV_RECEIVE: Check success, sending ACK
 SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
 SENDER: Received ACK!
-RECV_RECEIVE: Received 0x33 (3)
+RECV_AWAIT_BEGIN: Received 0x2 ()
+RECV_RECEIVE: Received 0x3b (;)
 RECV_RECEIVE: Received 0x6d (m)
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x6e (n)
@@ -135,13 +93,6 @@ RECV_RECEIVE: Received 0x6e (n)
 RECV_RECEIVE: Received 0x75 (u)
 RECV_RECEIVE: Received 0x6d (m)
 RECV_RECEIVE: Received 0x79 (y)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0xc0 (À)
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x65 (e)
 RECV_RECEIVE: Received 0x69 (i)
@@ -149,13 +100,6 @@ RECV_RECEIVE: Received 0x72 (r)
 RECV_RECEIVE: Received 0x6d (m)
 RECV_RECEIVE: Received 0x6f (o)
 RECV_RECEIVE: Received 0x64 (d)
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x65 (e)
@@ -165,13 +109,6 @@ RECV_RECEIVE: Received 0x6f (o)
 RECV_RECEIVE: Received 0x72 (r)
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x69 (i)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0x28 (()
 RECV_RECEIVE: Received 0x6e (n)
 RECV_RECEIVE: Received 0x76 (v)
 RECV_RECEIVE: Received 0x69 (i)
@@ -184,9 +121,9 @@ RECV_RECEIVE: Received 0x3 ()
 RECV_RECEIVE: Going to CHECK_PHASE
 RECV_RECEIVE: Check success, sending ACK
 SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
 SENDER: Received ACK!
-RECV_RECEIVE: Received 0x19 ()
+RECV_AWAIT_BEGIN: Received 0x2 ()
+RECV_RECEIVE: Received 0xf5 (õ)
 RECV_RECEIVE: Received 0x75 (u)
 RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x20 ( )
@@ -195,13 +132,6 @@ RECV_RECEIVE: Received 0x61 (a)
 RECV_RECEIVE: Received 0x62 (b)
 RECV_RECEIVE: Received 0x6f (o)
 RECV_RECEIVE: Received 0x72 (r)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0xbd (½)
 RECV_RECEIVE: Received 0x65 (e)
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x65 (e)
@@ -210,13 +140,6 @@ RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x64 (d)
 RECV_RECEIVE: Received 0x6f (o)
 RECV_RECEIVE: Received 0x6c (l)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0x9 (	)
 RECV_RECEIVE: Received 0x6f (o)
 RECV_RECEIVE: Received 0x72 (r)
 RECV_RECEIVE: Received 0x65 (e)
@@ -225,13 +148,6 @@ RECV_RECEIVE: Received 0x6d (m)
 RECV_RECEIVE: Received 0x61 (a)
 RECV_RECEIVE: Received 0x67 (g)
 RECV_RECEIVE: Received 0x6e (n)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0x16 ()
 RECV_RECEIVE: Received 0x61 (a)
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x61 (a)
@@ -244,9 +160,9 @@ RECV_RECEIVE: Received 0x3 ()
 RECV_RECEIVE: Going to CHECK_PHASE
 RECV_RECEIVE: Check success, sending ACK
 SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
 SENDER: Received ACK!
-RECV_RECEIVE: Received 0xc6 (Æ)
+RECV_AWAIT_BEGIN: Received 0x2 ()
+RECV_RECEIVE: Received 0x16 ()
 RECV_RECEIVE: Received 0x61 (a)
 RECV_RECEIVE: Received 0x6d (m)
 RECV_RECEIVE: Received 0x20 ( )
@@ -255,13 +171,6 @@ RECV_RECEIVE: Received 0x72 (r)
 RECV_RECEIVE: Received 0x61 (a)
 RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x2c (,)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0xaa (ª)
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x73 (s)
 RECV_RECEIVE: Received 0x65 (e)
@@ -270,13 +179,6 @@ RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x64 (d)
 RECV_RECEIVE: Received 0x69 (i)
 RECV_RECEIVE: Received 0x61 (a)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0x37 (7)
 RECV_RECEIVE: Received 0x6d (m)
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x76 (v)
@@ -285,13 +187,6 @@ RECV_RECEIVE: Received 0x6c (l)
 RECV_RECEIVE: Received 0x75 (u)
 RECV_RECEIVE: Received 0x70 (p)
 RECV_RECEIVE: Received 0x74 (t)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0x6f (o)
 RECV_RECEIVE: Received 0x75 (u)
 RECV_RECEIVE: Received 0x61 (a)
 RECV_RECEIVE: Received 0x2e (.)
@@ -304,9 +199,9 @@ RECV_RECEIVE: Received 0x3 ()
 RECV_RECEIVE: Going to CHECK_PHASE
 RECV_RECEIVE: Check success, sending ACK
 SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
 SENDER: Received ACK!
-RECV_RECEIVE: Received 0xcd (Í)
+RECV_AWAIT_BEGIN: Received 0x2 ()
+RECV_RECEIVE: Received 0x79 (y)
 RECV_RECEIVE: Received 0x65 (e)
 RECV_RECEIVE: Received 0x72 (r)
 RECV_RECEIVE: Received 0x6f (o)
@@ -315,13 +210,6 @@ RECV_RECEIVE: Received 0x65 (e)
 RECV_RECEIVE: Received 0x6f (o)
 RECV_RECEIVE: Received 0x73 (s)
 RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0x8 ()
 RECV_RECEIVE: Received 0x65 (e)
 RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x20 ( )
@@ -330,13 +218,6 @@ RECV_RECEIVE: Received 0x63 (c)
 RECV_RECEIVE: Received 0x63 (c)
 RECV_RECEIVE: Received 0x75 (u)
 RECV_RECEIVE: Received 0x73 (s)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0xc6 (Æ)
 RECV_RECEIVE: Received 0x61 (a)
 RECV_RECEIVE: Received 0x6d (m)
 RECV_RECEIVE: Received 0x20 ( )
@@ -345,13 +226,6 @@ RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x6a (j)
 RECV_RECEIVE: Received 0x75 (u)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0xde (Þ)
 RECV_RECEIVE: Received 0x73 (s)
 RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x6f (o)
@@ -364,9 +238,9 @@ RECV_RECEIVE: Received 0x3 ()
 RECV_RECEIVE: Going to CHECK_PHASE
 RECV_RECEIVE: Check success, sending ACK
 SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
 SENDER: Received ACK!
-RECV_RECEIVE: Received 0x18 ()
+RECV_AWAIT_BEGIN: Received 0x2 ()
+RECV_RECEIVE: Received 0x4d (M)
 RECV_RECEIVE: Received 0x64 (d)
 RECV_RECEIVE: Received 0x6f (o)
 RECV_RECEIVE: Received 0x6c (l)
@@ -375,13 +249,6 @@ RECV_RECEIVE: Received 0x72 (r)
 RECV_RECEIVE: Received 0x65 (e)
 RECV_RECEIVE: Received 0x73 (s)
 RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0xb6 (¶)
 RECV_RECEIVE: Received 0x65 (e)
 RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x20 ( )
@@ -390,13 +257,6 @@ RECV_RECEIVE: Received 0x61 (a)
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x72 (r)
 RECV_RECEIVE: Received 0x65 (e)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0xbe (¾)
 RECV_RECEIVE: Received 0x62 (b)
 RECV_RECEIVE: Received 0x75 (u)
 RECV_RECEIVE: Received 0x6d (m)
@@ -405,13 +265,6 @@ RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x53 (S)
 RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x65 (e)
-RECV_RECEIVE: Received 0x3 ()
-RECV_RECEIVE: Going to CHECK_PHASE
-RECV_RECEIVE: Check success, sending ACK
-SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
-SENDER: Received ACK!
-RECV_RECEIVE: Received 0xc1 (Á)
 RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x63 (c)
@@ -424,9 +277,9 @@ RECV_RECEIVE: Received 0x3 ()
 RECV_RECEIVE: Going to CHECK_PHASE
 RECV_RECEIVE: Check success, sending ACK
 SENDER: Entering AWAIT_ACK
-RECV_AWAIT_BEGIN: Received 0x2 ()
 SENDER: Received ACK!
-RECV_RECEIVE: Received 0x1 ()
+RECV_AWAIT_BEGIN: Received 0x2 ()
+RECV_RECEIVE: Received 0x92 (’)
 RECV_RECEIVE: Received 0x6b (k)
 RECV_RECEIVE: Received 0x61 (a)
 RECV_RECEIVE: Received 0x73 (s)
@@ -435,556 +288,155 @@ RECV_RECEIVE: Received 0x20 ( )
 RECV_RECEIVE: Received 0x67 (g)
 RECV_RECEIVE: Received 0x75 (u)
 RECV_RECEIVE: Received 0x62 (b)
-RECV_RECEIVE: Received 0x3 ()
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x2 ()
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x1 ()
-RECV_RECEIVE: Received 0x6b (k)
-RECV_RECEIVE: Received 0x61 (a)
-RECV_RECEIVE: Received 0x73 (s)
-RECV_RECEIVE: Received 0x64 (d)
-RECV_RECEIVE: Received 0x20 ( )
+RECV_RECEIVE: Received 0x65 (e)
+RECV_RECEIVE: Received 0x72 (r)
 RECV_RECEIVE: Received 0x67 (g)
-RECV_RECEIVE: Received 0x75 (u)
-RECV_RECEIVE: Received 0x62 (b)
-RECV_RECEIVE: Received 0x3 ()
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x2 ()
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x1 ()
-RECV_RECEIVE: Received 0x6b (k)
-RECV_RECEIVE: Received 0x61 (a)
-RECV_RECEIVE: Received 0x73 (s)
-RECV_RECEIVE: Received 0x64 (d)
+RECV_RECEIVE: Received 0x72 (r)
+RECV_RECEIVE: Received 0x65 (e)
+RECV_RECEIVE: Received 0x6e (n)
+RECV_RECEIVE: Received 0x2c (,)
 RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x67 (g)
-RECV_RECEIVE: Received 0x75 (u)
-RECV_RECEIVE: Received 0x62 (b)
-RECV_RECEIVE: Received 0x3 ()
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x2 ()
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x1 ()
-RECV_RECEIVE: Received 0x6b (k)
-RECV_RECEIVE: Received 0x61 (a)
-RECV_RECEIVE: Received 0x73 (s)
-RECV_RECEIVE: Received 0x64 (d)
+RECV_RECEIVE: Received 0x6e (n)
+RECV_RECEIVE: Received 0x6f (o)
 RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x67 (g)
-RECV_RECEIVE: Received 0x75 (u)
-RECV_RECEIVE: Received 0x62 (b)
-RECV_RECEIVE: Received 0x3 ()
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x2 ()
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x1 ()
-RECV_RECEIVE: Received 0x6b (k)
-RECV_RECEIVE: Received 0x61 (a)
 RECV_RECEIVE: Received 0x73 (s)
-RECV_RECEIVE: Received 0x64 (d)
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x67 (g)
-RECV_RECEIVE: Received 0x75 (u)
-RECV_RECEIVE: Received 0x62 (b)
-RECV_RECEIVE: Received 0x3 ()
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x2 ()
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x1 ()
-RECV_RECEIVE: Received 0x6b (k)
+RECV_RECEIVE: Received 0x65 (e)
 RECV_RECEIVE: Received 0x61 (a)
-RECV_RECEIVE: Received 0x73 (s)
-RECV_RECEIVE: Received 0x64 (d)
 RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x67 (g)
-RECV_RECEIVE: Received 0x75 (u)
-RECV_RECEIVE: Received 0x62 (b)
-RECV_RECEIVE: Received 0x3 ()
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x2 ()
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x1 ()
-RECV_RECEIVE: Received 0x6b (k)
+RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x61 (a)
-RECV_RECEIVE: Received 0x73 (s)
-RECV_RECEIVE: Received 0x64 (d)
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x67 (g)
-RECV_RECEIVE: Received 0x75 (u)
-RECV_RECEIVE: Received 0x62 (b)
-RECV_RECEIVE: Received 0x3 ()
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x2 ()
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x1 ()
 RECV_RECEIVE: Received 0x6b (k)
+RECV_RECEIVE: Received 0x69 (i)
+RECV_RECEIVE: Received 0x6d (m)
 RECV_RECEIVE: Received 0x61 (a)
-RECV_RECEIVE: Received 0x73 (s)
-RECV_RECEIVE: Received 0x64 (d)
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x67 (g)
-RECV_RECEIVE: Received 0x75 (u)
-RECV_RECEIVE: Received 0x62 (b)
-RECV_RECEIVE: Received 0x3 ()
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x2 ()
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x1 ()
-RECV_RECEIVE: Received 0x6b (k)
+RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x61 (a)
-RECV_RECEIVE: Received 0x73 (s)
-RECV_RECEIVE: Received 0x64 (d)
 RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x67 (g)
-RECV_RECEIVE: Received 0x75 (u)
-RECV_RECEIVE: Received 0x62 (b)
 RECV_RECEIVE: Received 0x3 ()
+RECV_RECEIVE: Going to CHECK_PHASE
+RECV_RECEIVE: Check success, sending ACK
 SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x2 ()
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x1 ()
-RECV_RECEIVE: Received 0x6b (k)
+SENDER: Received ACK!
+RECV_AWAIT_BEGIN: Received 0x2 ()
+RECV_RECEIVE: Received 0x16 ()
+RECV_RECEIVE: Received 0x73 (s)
 RECV_RECEIVE: Received 0x61 (a)
-RECV_RECEIVE: Received 0x73 (s)
-RECV_RECEIVE: Received 0x64 (d)
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x67 (g)
-RECV_RECEIVE: Received 0x75 (u)
-RECV_RECEIVE: Received 0x62 (b)
-RECV_RECEIVE: Received 0x3 ()
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x2 ()
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x1 ()
-RECV_RECEIVE: Received 0x6b (k)
-RECV_RECEIVE: Received 0x61 (a)
-RECV_RECEIVE: Received 0x73 (s)
-RECV_RECEIVE: Received 0x64 (d)
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x67 (g)
-RECV_RECEIVE: Received 0x75 (u)
-RECV_RECEIVE: Received 0x62 (b)
-RECV_RECEIVE: Received 0x3 ()
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x2 ()
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x1 ()
-RECV_RECEIVE: Received 0x6b (k)
-RECV_RECEIVE: Received 0x61 (a)
-RECV_RECEIVE: Received 0x73 (s)
-RECV_RECEIVE: Received 0x64 (d)
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x67 (g)
-RECV_RECEIVE: Received 0x75 (u)
-RECV_RECEIVE: Received 0x62 (b)
-RECV_RECEIVE: Received 0x3 ()
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x2 ()
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x1 ()
-RECV_RECEIVE: Received 0x6b (k)
-RECV_RECEIVE: Received 0x61 (a)
-RECV_RECEIVE: Received 0x73 (s)
-RECV_RECEIVE: Received 0x64 (d)
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x67 (g)
-RECV_RECEIVE: Received 0x75 (u)
-RECV_RECEIVE: Received 0x62 (b)
-RECV_RECEIVE: Received 0x3 ()
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x2 ()
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x1 ()
-RECV_RECEIVE: Received 0x6b (k)
-RECV_RECEIVE: Received 0x61 (a)
-RECV_RECEIVE: Received 0x73 (s)
-RECV_RECEIVE: Received 0x64 (d)
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x67 (g)
-RECV_RECEIVE: Received 0x75 (u)
-RECV_RECEIVE: Received 0x62 (b)
-RECV_RECEIVE: Received 0x3 ()
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x2 ()
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x1 ()
-RECV_RECEIVE: Received 0x6b (k)
+RECV_RECEIVE: Received 0x6e (n)
 RECV_RECEIVE: Received 0x63 (c)
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
+RECV_RECEIVE: Received 0x74 (t)
+RECV_RECEIVE: Received 0x75 (u)
+RECV_RECEIVE: Received 0x73 (s)
 RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
+RECV_RECEIVE: Received 0x65 (e)
+RECV_RECEIVE: Received 0x73 (s)
+RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
+RECV_RECEIVE: Received 0x4c (L)
+RECV_RECEIVE: Received 0x6f (o)
+RECV_RECEIVE: Received 0x72 (r)
+RECV_RECEIVE: Received 0x65 (e)
+RECV_RECEIVE: Received 0x6d (m)
 RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
+RECV_RECEIVE: Received 0x69 (i)
+RECV_RECEIVE: Received 0x70 (p)
+RECV_RECEIVE: Received 0x73 (s)
+RECV_RECEIVE: Received 0x75 (u)
+RECV_RECEIVE: Received 0x6d (m)
 RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
+RECV_RECEIVE: Received 0x64 (d)
+RECV_RECEIVE: Received 0x6f (o)
+RECV_RECEIVE: Received 0x6c (l)
+RECV_RECEIVE: Received 0x6f (o)
+RECV_RECEIVE: Received 0x72 (r)
 RECV_RECEIVE: Received 0x20 ( )
+RECV_RECEIVE: Received 0x73 (s)
+RECV_RECEIVE: Received 0x69 (i)
+RECV_RECEIVE: Received 0x3 ()
+RECV_RECEIVE: Going to CHECK_PHASE
+RECV_RECEIVE: Check success, sending ACK
 SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
+SENDER: Received ACK!
+RECV_AWAIT_BEGIN: Received 0x2 ()
+RECV_RECEIVE: Received 0x74 (t)
+RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
+RECV_RECEIVE: Received 0x61 (a)
+RECV_RECEIVE: Received 0x6d (m)
+RECV_RECEIVE: Received 0x65 (e)
+RECV_RECEIVE: Received 0x74 (t)
+RECV_RECEIVE: Received 0x2e (.)
 RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
+RECV_RECEIVE: Received 0x4c (L)
+RECV_RECEIVE: Received 0x6f (o)
+RECV_RECEIVE: Received 0x72 (r)
+RECV_RECEIVE: Received 0x65 (e)
+RECV_RECEIVE: Received 0x6d (m)
 RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
+RECV_RECEIVE: Received 0x69 (i)
+RECV_RECEIVE: Received 0x70 (p)
+RECV_RECEIVE: Received 0x73 (s)
+RECV_RECEIVE: Received 0x75 (u)
+RECV_RECEIVE: Received 0x6d (m)
 RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
+RECV_RECEIVE: Received 0x64 (d)
+RECV_RECEIVE: Received 0x6f (o)
+RECV_RECEIVE: Received 0x6c (l)
+RECV_RECEIVE: Received 0x6f (o)
+RECV_RECEIVE: Received 0x72 (r)
 RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
+RECV_RECEIVE: Received 0x73 (s)
+RECV_RECEIVE: Received 0x69 (i)
+RECV_RECEIVE: Received 0x74 (t)
 RECV_RECEIVE: Received 0x20 ( )
+RECV_RECEIVE: Received 0x61 (a)
+RECV_RECEIVE: Received 0x6d (m)
+RECV_RECEIVE: Received 0x3 ()
+RECV_RECEIVE: Going to CHECK_PHASE
+RECV_RECEIVE: Check success, sending ACK
 SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
+SENDER: Received ACK!
+RECV_AWAIT_BEGIN: Received 0x2 ()
+RECV_RECEIVE: Received 0x22 (")
+RECV_RECEIVE: Received 0x65 (e)
+RECV_RECEIVE: Received 0x74 (t)
+RECV_RECEIVE: Received 0x2c (,)
 RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
+RECV_RECEIVE: Received 0x63 (c)
+RECV_RECEIVE: Received 0x6f (o)
+RECV_RECEIVE: Received 0x6e (n)
+RECV_RECEIVE: Received 0x73 (s)
+RECV_RECEIVE: Received 0x65 (e)
+RECV_RECEIVE: Received 0x74 (t)
+RECV_RECEIVE: Received 0x65 (e)
+RECV_RECEIVE: Received 0x74 (t)
+RECV_RECEIVE: Received 0x75 (u)
+RECV_RECEIVE: Received 0x72 (r)
 RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
+RECV_RECEIVE: Received 0x73 (s)
+RECV_RECEIVE: Received 0x61 (a)
+RECV_RECEIVE: Received 0x64 (d)
+RECV_RECEIVE: Received 0x69 (i)
+RECV_RECEIVE: Received 0x70 (p)
+RECV_RECEIVE: Received 0x73 (s)
+RECV_RECEIVE: Received 0x63 (c)
+RECV_RECEIVE: Received 0x69 (i)
+RECV_RECEIVE: Received 0x6e (n)
+RECV_RECEIVE: Received 0x67 (g)
 RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
+RECV_RECEIVE: Received 0x65 (e)
+RECV_RECEIVE: Received 0x6c (l)
+RECV_RECEIVE: Received 0x69 (i)
+RECV_RECEIVE: Received 0x74 (t)
+RECV_RECEIVE: Received 0x72 (r)
+RECV_RECEIVE: Received 0x2c (,)
+RECV_RECEIVE: Received 0x3 ()
+RECV_RECEIVE: Going to CHECK_PHASE
+RECV_RECEIVE: Check success, sending ACK
+SENDER: Entering AWAIT_ACK
+SENDER: Received ACK!
+RECV_AWAIT_BEGIN: Received 0x2 ()
+RECV_RECEIVE: Received 0xbd (½)
 RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
-RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
-RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
-RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
-RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
-RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
-RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
-RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
-RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
-RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
-RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
-RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
-RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
-RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
-RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
-RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-RECV_RECEIVE: Received 0x20 ( )
-RECV_RECEIVE: Received 0x16 ()
-RECV_RECEIVE: Received 0xb6 (¶)
-RECV_RECEIVE: Received 0x17 ()
-RECV_RECEIVE: Received 0x36 (6)
-RECV_RECEIVE: Received 0x42 (B)
-RECV_RECEIVE: Received 0x6 ()
-RECV_RECEIVE: Received 0x77 (w)
-RECV_RECEIVE: Received 0x56 (V)
-RECV_RECEIVE: Received 0x20 ( )
-SENDER: Entering AWAIT_ACK
-RECV_RECEIVE: Received 0x30 (0)
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
-SENDER: Did not receive ACK. Resending frame...
-SENDER: Entering AWAIT_ACK
+RECV_RECEIVE: Received 0x73 (s)
+RECV_RECEIVE: Received 0x65 (e)
+RECV_RECEIVE: Received 0x64 (d)
