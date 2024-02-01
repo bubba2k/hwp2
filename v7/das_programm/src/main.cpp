@@ -155,7 +155,6 @@ int main(int argc, char *argv[]) {
             pack_frame(data, inframe);
             sender.read_frame(inframe);
 
-            // TODO: What if end of infile is reached?
 	    // If the data we attempt to send is of length zero, assume we are done.
 	    if(data.size() == 0) {
 		    if(sender_done_after_this_frame) sender_done = true;
@@ -172,7 +171,6 @@ int main(int argc, char *argv[]) {
 
 	    
 
-            // TODO: What if end of outfile is reached?
 	    // If the data we receive is of length zero, assume we are done.
 	    // (Three including control sequences.)
 	    if(data.size() < BLOCK_SIZE) {
