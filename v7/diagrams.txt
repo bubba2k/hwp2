@@ -1,0 +1,24 @@
+# Sender
+flowchart TD
+    A[Sende Byte] --> B(Frame\nEnde?) --> |ja| C
+    B -->|nein| A
+    C(Erwarte\nACK) --> |ACK erhalten| D
+    C --> |ACK nicht erhalten| E[Wiederhole Frame]
+    E --> A
+    D[Hole neues Frame]  --> A
+
+# Receiver
+flowchart TD
+    A[Empfange Byte]
+    B(Steuersignal?)
+    C[Sende ACK,\nschreibe Frame]
+    D[Setze Framebuffer zurück]
+    E(Checksum Test)
+
+    A --> B
+    B --> |keines| A
+    B --> |END| E
+    E --> |Erfolg| C
+    E --> |Fehlschlag| D
+    D --> A
+    C --> A
