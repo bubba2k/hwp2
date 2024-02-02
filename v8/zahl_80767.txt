@@ -1,1 +1,7 @@
 1e8467782c15c27b67288f44cd29e136
+
+UART
+BAUD = 4763
+Stopp Bits = 1.0
+
+Frame errors? Gab es, sie wurden erkannt

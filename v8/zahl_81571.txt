@@ -1,1 +1,8 @@
 737e217059580da9851ac0fb7eff3543
+
+UART
+BAUD = 9600
+!! 7 Bit ASCII
+Stopp Bits = 1.0
+
+Frame errors?
